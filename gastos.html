@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastos - CasaApp</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav>
+    <div>
+        <a href="index.html">🏠 Inicio</a>
+        <a href="tareas.html">📋 Tareas</a>
+        <a href="gastos.html">💰 Gastos</a>
+        <a href="compras.html">🛒 Compras</a>
+    </div>
+    <a href="login.html" class="btn-login">👤 Iniciar Sesión</a>
+</nav>
+    
+    <header>
+        <h1> Control de Gastos</h1>
+        <p>Transparencia total en los gastos del hogar</p>
+    </header>
+    
+    <main>
+        <!-- Resumen Superior -->
+        <section class="dashboard">
+            <div class="expense-summary">
+                <div class="summary-card">
+                    <h3>Gasto Total del Mes</h3>
+                    <div class="amount red">450,00 €</div>
+                </div>
+                <div class="summary-card">
+                    <h3>A pagar por persona</h3>
+                    <div class="amount">112,50 €</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Mayor gasto del mes</h3>
+                    <div class="amount green">Compra Supermercado</div>
+                </div>
+            </div>
+
+            <!-- Lista de Movimientos -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>Movimientos recientes</h2>
+                <button style="background: #667eea; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">+ Añadir Gasto</button>
+            </div>
+
+            <div class="transaction-list">
+                
+                <!-- Movimiento 1 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon"></div>
+                        <div class="transaction-details">
+                            <h4>Compra Supermercado</h4>
+                            <p>Pagado por <strong>Rosa</strong> · 10 Jun 2025</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">120,50 €</div>
+                </div>
+
+                <!-- Movimiento 2 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon">💡</div>
+                        <div class="transaction-details">
+                            <h4>Factura de la Luz</h4>
+                            <p>Pagado por <strong>Miguel</strong> · 08 Jun 2025</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">85,20 €</div>
+                </div>
+
+                <!-- Movimiento 3 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon">🧻</div>
+                        <div class="transaction-details">
+                            <h4>Productos Limpieza</h4>
+                            <p>Pagado por <strong>Ana</strong> · 05 Jun 2025</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">35,80 €</div>
+                </div>
+
+                <!-- Movimiento 4 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon">🍕</div>
+                        <div class="transaction-details">
+                            <h4>Cena del Viernes</h4>
+                            <p>Pagado por <strong>Pedro</strong> · 03 Jun 2025</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">45,00 €</div>
+                </div>
+
+                <!-- Movimiento 5 -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon">📶</div>
+                        <div class="transaction-details">
+                            <h4>Internet y Móviles</h4>
+                            <p>Pagado por <strong>Rosa</strong> · 01 Jun 2025</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">65,00 €</div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Desarrollado por LZumake | Proyecto DAW</p>
+    </footer>
+</body>
+</html>

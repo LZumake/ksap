@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas - CasaApp</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+   <nav>
+    <div>
+        <a href="index.html">🏠 Inicio</a>
+        <a href="tareas.html">📋 Tareas</a>
+        <a href="gastos.html">💰 Gastos</a>
+        <a href="compras.html">🛒 Compras</a>
+    </div>
+    <a href="login.html" class="btn-login">👤 Iniciar Sesión</a>
+</nav>
+    
+    <header>
+        <h1>📋 Gestión de Tareas</h1>
+        <p>Organización y limpieza del hogar</p>
+    </header>
+    
+    <main>
+        <section class="dashboard">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2>Tareas del día</h2>
+                <!-- Un botón decorativo por ahora -->
+                <button style="background: #667eea; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">+ Nueva Tarea</button>
+            </div>
+
+            <div class="table-container">
+                <table class="task-table">
+                    <thead>
+                        <tr>
+                            <th>Tarea</th>
+                            <th>Zona</th>
+                            <th>Responsable</th>
+                            <th>Duración</th>
+                            <th>Frecuencia</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Tarea 1 -->
+                        <tr>
+                            <td>Hacer la cama y ventilar dormitorio</td>
+                            <td>Dormitorios</td>
+                            <td>
+                                <span class="user-avatar user-compartidas">C</span>
+                                <span class="user-name">Compartidas</span>
+                            </td>
+                            <td><span class="tag tag-expres">Expres</span></td>
+                            <td>Diaria</td>
+                            <td class="estado estado-pendiente"><span class="check-circle"></span> Pendiente</td>
+                        </tr>
+                        
+                        <!-- Tarea 2 -->
+                        <tr>
+                            <td>Preparar el desayuno</td>
+                            <td>Cocina</td>
+                            <td>
+                                <span class="user-avatar user-rosa">R</span>
+                                <span class="user-name">Rosa</span>
+                            </td>
+                            <td><span class="tag tag-media">Media</span></td>
+                            <td>Diaria</td>
+                            <td class="estado estado-hecha"><span class="check-circle"></span> Hecha</td>
+                        </tr>
+
+                        <!-- Tarea 3 -->
+                        <tr>
+                            <td>Fregar platos del desayuno</td>
+                            <td>Cocina</td>
+                            <td>
+                                <span class="user-avatar user-pedro">P</span>
+                                <span class="user-name">Pedro</span>
+                            </td>
+                            <td><span class="tag tag-expres">Expres</span></td>
+                            <td>Diaria</td>
+                            <td class="estado estado-pendiente"><span class="check-circle"></span> Pendiente</td>
+                        </tr>
+
+                        <!-- Tarea 4 (Semanal) -->
+                        <tr>
+                            <td>Limpiar espejos del baño</td>
+                            <td>Baño</td>
+                            <td>
+                                <span class="user-avatar user-miguel">M</span>
+                                <span class="user-name">Miguel</span>
+                            </td>
+                            <td><span class="tag tag-expres">Expres</span></td>
+                            <td>Semanal (Jue)</td>
+                            <td class="estado estado-pendiente"><span class="check-circle"></span> Pendiente</td>
+                        </tr>
+
+                        <!-- Tarea 5 (Estacional) -->
+                        <tr>
+                            <td>Limpiar persianas y ventanas</td>
+                            <td>Dormitorios</td>
+                            <td>
+                                <span class="user-avatar user-compartidas">C</span>
+                                <span class="user-name">Compartidas</span>
+                            </td>
+                            <td><span class="tag tag-profunda">Profunda</span></td>
+                            <td>Estacional</td>
+                            <td class="estado estado-pendiente"><span class="check-circle"></span> Pendiente</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Desarrollado por LZumake | Proyecto DAW</p>
+    </footer>
+</body>
+</html>
+/* =========================================
+   ESTILOS PARA LA PÁGINA DE GASTOS
+   ========================================= */
+
+/* Tarjetas de Resumen Financiero */
+.expense-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.summary-card h3 {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.summary-card .amount {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.summary-card .amount.green { color: #198754; }
+.summary-card .amount.red { color: #dc3545; }
+
+/* Lista de Transacciones */
+.transaction-list {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s;
+}
+
+.transaction-item:hover {
+    background-color: #f8f9fa;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.transaction-icon {
+    font-size: 1.5rem;
+    background-color: #f1f3f5;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.transaction-details h4 {
+    font-size: 1rem;
+    color: #2c3e50;
+    margin-bottom: 0.2rem;
+}
+
+.transaction-details p {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+.transaction-amount {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
