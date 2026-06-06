@@ -1,2 +1,3 @@
-# casa-app
+# ksap
 App para gestionar tareas, gastos y compras en casas compartidas
+

@@ -1,4 +1,4 @@
-# 📋 Backlog de Mejoras y Evolución - CasaApp
+# 📋 Backlog de Mejoras y Evolución - Ksap
 
 ## 🚀 Fase 1: Mejoras de UX/UI y Corrección de Bugs (Prioridad Alta)
 
@@ -78,7 +78,7 @@ En lugar de la lista, la página de Tareas tendrá 4 accesos directos:
 **Idea**: Añadir un pequeño interruptor (toggle) en el menú o en el footer para cambiar entre tema claro y oscuro.
 
 ### 12. Pantalla de carga (Splash Screen)
-**Idea**: Mostrar el logo de CasaApp durante 1 segundo al abrir la app en el móvil, mientras cargan los recursos. Da sensación de app nativa.
+**Idea**: Mostrar el logo de Ksap durante 1 segundo al abrir la app en el móvil, mientras cargan los recursos. Da sensación de app nativa.
 
 ---
 *Última actualización: 06/06/2026 (Sesión 6 - Ideas nocturnas y arquitectura de distribuidor incluidas)*
