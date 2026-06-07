@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Ksap</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="index.html">🏠 Inicio</a>
+            <a href="tareas.html">📋 Tareas</a>
+            <a href="gastos.html">💰 Gastos</a>
+            <a href="compras.html">🛒 Compras</a>
+        </div>
+        <a href="login.html" class="btn-login">👤 Iniciar Sesión</a>
+        
+        <!-- Avatar de Usuario -->
+        <div class="user-avatar-container">
+            <button class="user-avatar-btn" id="user-avatar-btn" aria-label="Menú de usuario">
+                <span class="avatar-initials" id="avatar-initials">U</span>
+            </button>
+            <div class="user-dropdown" id="user-dropdown">
+                <div class="dropdown-header">
+                    <div class="dropdown-avatar" id="dropdown-avatar">U</div>
+                    <div class="dropdown-info">
+                        <div class="dropdown-name" id="dropdown-name">Usuario</div>
+                        <div class="dropdown-email" id="dropdown-email">usuario@ksap.app</div>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a href="perfil.html" class="dropdown-item">👤 Mi Perfil</a>
+                <a href="configuracion.html" class="dropdown-item active">⚙️ Configuración</a>
+                <button class="dropdown-item dropdown-toggle">
+                    <span>📍 GPS</span>
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="gps-toggle">
+                        <span class="toggle-slider"></span>
+                    </span>
+                </button>
+                <button class="dropdown-item dropdown-toggle">
+                    <span>🌙 Modo Oscuro</span>
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="toggle-slider"></span>
+                    </span>
+                </button>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item logout-item" id="logout-btn">🚪 Cerrar Sesión</a>
+            </div>
+        </div>
+    </nav>
+    
+    <header>
+        <h1>⚙️ Configuración</h1>
+        <p>Personaliza tu experiencia en Ksap</p>
+    </header>
+    
+    <main>
+        <section class="dashboard">
+            <div class="settings-container">
+                
+                <!-- Notificaciones -->
+                <div class="settings-section">
+                    <h3>🔔 Notificaciones</h3>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Recordatorios de tareas</strong>
+                            <p>Recibe avisos cuando tengas tareas pendientes</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Nuevos gastos</strong>
+                            <p>Aviso cuando alguien añada un gasto</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Eventos cercanos</strong>
+                            <p>Descubre eventos culturales a 50km</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Privacidad -->
+                <div class="settings-section">
+                    <h3>🔒 Privacidad</h3>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>📍 Ubicación (GPS)</strong>
+                            <p>Necesaria para eventos cercanos y ofertas locales</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="settings-gps">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Compartir estadísticas</strong>
+                            <p>Ayuda a mejorar Ksap con datos anónimos</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Apariencia -->
+                <div class="settings-section">
+                    <h3>🎨 Apariencia</h3>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>🌙 Modo Oscuro</strong>
+                            <p>Reduce la fatiga visual por la noche</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="settings-dark-mode">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Tamaño de texto</strong>
+                            <p>Ajusta el tamaño de la fuente</p>
+                        </div>
+                        <select class="settings-select">
+                            <option>Pequeño</option>
+                            <option selected>Normal</option>
+                            <option>Grande</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Idioma y región -->
+                <div class="settings-section">
+                    <h3>🌍 Idioma y Región</h3>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Idioma</strong>
+                        </div>
+                        <select class="settings-select">
+                            <option selected>Español</option>
+                            <option>English</option>
+                            <option>Català</option>
+                            <option>Euskera</option>
+                            <option>Galego</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Moneda</strong>
+                        </div>
+                        <select class="settings-select">
+                            <option selected>€ Euro (EUR)</option>
+                            <option>$ Dólar (USD)</option>
+                            <option>£ Libra (GBP)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Cuenta -->
+                <div class="settings-section">
+                    <h3>👤 Cuenta</h3>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Cambiar contraseña</strong>
+                            <p>Actualiza tu contraseña de acceso</p>
+                        </div>
+                        <button class="btn-secondary">Cambiar</button>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-info">
+                            <strong>Exportar mis datos</strong>
+                            <p>Descarga toda tu información en formato JSON</p>
+                        </div>
+                        <button class="btn-secondary">Exportar</button>
+                    </div>
+                    <div class="settings-item danger">
+                        <div class="settings-info">
+                            <strong>Eliminar cuenta</strong>
+                            <p>Esta acción no se puede deshacer</p>
+                        </div>
+                        <button class="btn-danger">Eliminar</button>
+                    </div>
+                </div>
+
+                <!-- Información -->
+                <div class="settings-section">
+                    <h3>ℹ️ Acerca de</h3>
+                    <div class="settings-info-text">
+                        <p><strong>Ksap</strong> v1.0.0</p>
+                        <p>Desarrollado por LZumake | Proyecto DAW</p>
+                        <p>© 2026 Ksap. Todos los derechos reservados.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Desarrollado por LZumake | Proyecto DAW</p>
+    </footer>
+    <script src="js/app.js"></script>
+</body>
+</html>

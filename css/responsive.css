@@ -1,323 +1,182 @@
 /* =========================================
-   RESPONSIVE DESIGN - MÓVILES
+   RESPONSIVE - MÓVIL Y TABLET
    ========================================= */
 
-/* =========================================
-   TABLETAS Y MÓVILES GRANDES (max-width: 768px)
-   ========================================= */
-@media (max-width: 768px) {
-    
-    /* Nav sticky */
-    nav {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        padding: 0.5rem 0.8rem !important;
-        min-height: 40px;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    /* Header sticky */
-    header {
-        position: sticky;
-        top: 40px;
-        z-index: 99;
-        padding: 0.6rem !important;
-    }
-    
-    header h1 {
-        font-size: 1.0rem;
-        margin-bottom: 0.2rem;
-    }
-    
-    header p {
-        font-size: 0.80rem;
-    }
-    
-    /* Menú hamburguesa */
-    .hamburger {
-        display: flex;
-        width: 26px;
-        height: 20px;
-    }
-    
-    .nav-left {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        justify-content: space-between;
-    }
-/* Menú hamburguesa - botón */
+/* Menú hamburguesa (solo visible en móvil) */
 .hamburger {
-    display: flex;
-    width: 26px;
-    height: 20px;
-    cursor: pointer;
-    z-index: 101;
-}
-
-/* Contenedor de enlaces - oculto por defecto */
-.nav-left a {
     display: none;
-}
-
-/* Cuando el menú está abierto */
-nav.open .nav-left {
-    position: fixed;
-    top: 40px; /* Altura del nav */
-    left: 0;
-    width: 100px;
-    height: calc(100vh - 40px);
-    background-color: #2c3e50;
     flex-direction: column;
-    padding: 1rem 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 100;
-    animation: slideIn 0.3s ease;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 1rem;
 }
 
-/* Animación de entrada */
-@keyframes slideIn {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
-/* Enlaces del menú */
-nav.open .nav-left a {
+.hamburger span {
     display: block;
     width: 100%;
-    text-align: left;
-    padding: 1rem 1.5rem;
-    border-radius: 0;
-    margin: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-nav.open .nav-left a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+.hamburger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
 }
 
-nav.open .nav-left a.active {
-    background-color: rgba(255, 255, 255, 0.2);
-    font-weight: bold;
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
 }
 
-/* Botón de login en el menú */
-nav.open .btn-login {
-    display: block;
-    width: auto;
-    margin: 1rem 1.5rem;
-    text-align: right;
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
 }
-    
-    .btn-login {
-        width: auto !important;
-        padding: 0.4rem 0.8rem !important;
-        font-size: 0.8rem !important;
-        background: transparent !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        color: white !important;
-        margin: 0 auto !important;
+
+/* =========================================
+   TABLET Y MÓVIL (hasta 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Mostrar hamburguesa */
+    .hamburger {
+        display: flex !important;
     }
     
-    .btn-login:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
-        border-color: rgba(255, 255, 255, 0.5) !important;
-    }
-    
-    nav a {
-        font-size: 0.9rem;
-        padding: 0.5rem;
-    }
-    
-    main {
-        padding: 1rem 0.5rem !important;
-    }
-    
-    .dashboard > div:first-child {
-        flex-direction: column;
-        align-items: flex-start !important;
-        gap: 1rem;
-    }
-    
-    .btn-primary {
-        width: 100%;
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-        text-align: center;
-    }
-    
-    /* Tarjetas en 1 columna */
-    .cards,
-    .shopping-section,
-    .gastos-container {
-        grid-template-columns: 1fr !important;
-    }
-    
-    .shopping-category {
-        margin-bottom: 1rem;
-    }
-    
-    .shopping-category h3 {
-        font-size: 1.1rem;
-        padding: 0.8rem;
-    }
-    
-    .shopping-item {
-        padding: 0.8rem;
-    }
-    
-    .item-name {
-        font-size: 0.95rem;
-    }
-    
-    .table-container {
-        overflow-x: auto;
-        margin: 0 !important;
-    }
-    
-    /* =========================================
-       TABLA → TARJETAS LIMPIAS
-       ========================================= */
-    
-    /* Ocultar cabecera */
-    .task-table thead {
+    /* Ocultar enlaces de navegación por defecto */
+    .nav-left a:not(.hamburger) {
         display: none !important;
     }
     
-    /* Quitar min-width */
-    .task-table {
-        min-width: auto !important;
-        width: 100%;
+    /* NAV en móvil: mantener flex row para que avatar quede arriba */
+    nav {
+        padding: 1rem;
+        position: relative;
     }
     
-    /* Cada fila = tarjeta */
-    .task-table tbody tr {
-        display: block !important;
-        background: white !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-        margin-bottom: 1.5rem !important;
-        padding: 1.2rem !important;
-        border: 2px solid #e9ecef !important;
+    .nav-left {
+        gap: 0.5rem;
     }
     
-    /* Cada celda = bloque limpio */
-    .task-table td {
+    .nav-right {
+        gap: 0.5rem;
+        position: relative;
+        z-index: 110; /* Avatar por encima del drawer */
+    }
+    
+    /* Drawer lateral cuando el menú está abierto */
+    nav.open .nav-left {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 220px !important; /* Ancho del drawer */
+        height: 100vh !important;
+        background-color: #2c3e50 !important;
+        flex-direction: column !important;
+        align-items: stretch !important; /* Estirar enlaces al ancho completo */
+        padding: 4rem 0 1rem !important;
+        z-index: 100 !important;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+    }
+    
+    /* Enlaces dentro del drawer */
+    nav.open .nav-left a:not(.hamburger) {
         display: block !important;
         width: 100% !important;
-        padding: 0.8rem 0 !important;
-        margin-bottom: 0.5rem !important;
-        border-bottom: 1px solid #dee2e6 !important;
+        padding: 1rem 1.2rem !important;
         text-align: left !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: white !important;
     }
     
-    .task-table td:last-child {
-        border-bottom: none !important;
-        margin-bottom: 0 !important;
+    nav.open .nav-left a:not(.hamburger):hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
     }
     
-    /* Etiquetas con ::before */
-    .task-table td::before {
-        content: attr(data-label) " :";
-        display: block !important;
-        font-weight: 700 !important;
-        color: #495057 !important;
-        font-size: 0.8rem !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.5px !important;
-        margin-bottom: 0.4rem !important;
-        padding-bottom: 0.3rem !important;
-        border-bottom: 2px solid #667eea !important;
+    /* Ocultar botón de login cuando el menú está abierto */
+    nav.open .btn-login {
+        display: none !important;
     }
     
-    /* Columna TAREA especial */
-    .task-table td[data-label="TAREA"] {
-        background: linear-gradient(135deg, #fff9db 0%, #fff 100%) !important;
-        padding: 1rem !important;
-        border-radius: 8px !important;
-        margin-bottom: 1rem !important;
-        border: 2px solid #667eea !important;
+    /* Ajustar avatar en móvil */
+    .user-avatar-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.85rem;
     }
     
-    .task-table td[data-label="TAREA"]::before {
-        color: #667eea !important;
-        font-size: 0.9rem !important;
+    /* Ajustar dropdown en móvil */
+    .user-dropdown {
+        right: -10px;
+        min-width: 240px;
     }
     
-    .task-table td[data-label="TAREA"] .task-icon {
-        width: 56px !important;
-        height: 56px !important;
-        margin-bottom: 0.5rem !important;
+    /* Ajustar header en móvil */
+    header {
+        padding: 2rem 1rem;
     }
     
-    /* Badges más pequeños */
-    .task-table td .badge {
-        font-size: 0.75rem !important;
-        padding: 0.3rem 0.6rem !important;
-        display: inline-block !important;
+    header h1 {
+        font-size: 2rem;
     }
     
-    /* Avatares más pequeños */
-    .task-table td .user-avatar {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 0.8rem !important;
+    header p {
+        font-size: 1rem;
     }
     
-    .task-table td .user-cell {
-        display: flex !important;
-        align-items: center !important;
-        gap: 0.6rem !important;
+    /* Ajustar main en móvil */
+    main {
+        padding: 1rem;
     }
     
-    .task-table td .user-name {
-        font-size: 0.9rem !important;
-        font-weight: 600 !important;
+    /* Ajustar cards en móvil */
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
-    /* Checkbox y estado */
-    .task-table td input[type="checkbox"] {
-        width: 20px !important;
-        height: 20px !important;
-        margin-right: 0.5rem !important;
+    /* Ajustar tabla de tareas en móvil */
+    .task-table {
+        min-width: 600px;
     }
     
-    .task-table td .status {
-        font-size: 0.85rem !important;
-        font-weight: 500 !important;
+    /* Ajustar perfil en móvil */
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-actions {
+        flex-direction: column;
+    }
+    
+    .profile-actions button {
+        width: 100%;
     }
 }
 
 /* =========================================
-   MÓVILES PEQUEÑOS (max-width: 480px)
+   MÓVIL PEQUEÑO (hasta 480px)
    ========================================= */
 @media (max-width: 480px) {
     header h1 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
     
-    header p {
-        font-size: 0.85rem;
+    .card {
+        padding: 1.5rem;
     }
     
-    nav a {
-        font-size: 0.85rem;
-        padding: 0.4rem;
-    }
-    
-    .shopping-category h3 {
-        font-size: 1rem;
-    }
-    
-    .item-name,
-    .item-quantity,
-    .item-buyer {
-        font-size: 0.9rem;
+    .card h3 {
+        font-size: 1.1rem;
     }
 }

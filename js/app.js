@@ -42,25 +42,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 // ============================================
-// MENÚ HAMBURGUESA
+// MENÚ HAMBURGUESA CON OVERLAY
 // ============================================
 const hamburger = document.getElementById('hamburger');
 const nav = document.querySelector('nav');
+const overlay = document.getElementById('overlay');
 
 if (hamburger) {
-    hamburger.addEventListener('click', function() {
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
         this.classList.toggle('active');
         nav.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('active');
     });
     
-    // Cerrar menú al hacer clic en un enlace
+    // Cerrar al hacer clic en el overlay
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            nav.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+    }
+
+    // Cerrar al hacer clic en un enlace del menú
     const navLinks = document.querySelectorAll('nav .nav-left a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             hamburger.classList.remove('active');
             nav.classList.remove('open');
+            if (overlay) overlay.classList.remove('active');
         });
     });
+    
+    // Evitar que el clic en el nav cierre el menú
+    if (nav) {
+        nav.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
 }
 // ============================================
 // VALIDACIÓN DE FORMULARIO DE REGISTRO
@@ -213,3 +233,195 @@ taskCheckboxes.forEach(checkbox => {
 
 // Llamar a la función al cargar la página para inicializar
 updateTaskProgress();
+// ============================================
+// SISTEMA DE LOGIN Y SESIÓN
+// ============================================
+
+// Función para iniciar sesión
+function login(username, isGuest = false) {
+    const userData = {
+        username: username,
+        isGuest: isGuest,
+        loginTime: new Date().toISOString()
+    };
+    
+    // Guardar en localStorage
+    localStorage.setItem('ksap_user', JSON.stringify(userData));
+    
+    // Redirigir al index
+    window.location.href = 'index.html';
+}
+
+// Función para cerrar sesión
+function logout() {
+    localStorage.removeItem('ksap_user');
+    window.location.href = 'login.html';
+}
+
+// Función para verificar si hay sesión activa
+function checkAuth() {
+    const user = localStorage.getItem('ksap_user');
+    
+    // Si estamos en login.html y hay sesión, redirigir al index
+    if (window.location.pathname.includes('login.html') && user) {
+        window.location.href = 'index.html';
+        return;
+    }
+    
+    // Si NO estamos en login.html y NO hay sesión, redirigir al login
+    if (!window.location.pathname.includes('login.html') && !window.location.pathname.includes('register.html') && !user) {
+        window.location.href = 'login.html';
+        return false;
+    }
+    
+    return user ? JSON.parse(user) : null;
+}
+
+// Función para actualizar UI según el tipo de usuario
+function updateUIForUser(userData) {
+    if (!userData) return;
+    
+    // Si es invitado, ocultar botones de añadir
+    if (userData.isGuest) {
+        const addButtons = document.querySelectorAll('.btn-primary, .btn-add');
+        addButtons.forEach(btn => {
+            btn.style.display = 'none';
+        });
+        
+        // Añadir aviso de modo invitado
+        const mainContent = document.querySelector('main');
+        if (mainContent && !document.querySelector('.guest-notice')) {
+            const notice = document.createElement('div');
+            notice.className = 'guest-notice';
+            notice.innerHTML = '👤 Modo invitado - Inicia sesión para editar';
+            mainContent.insertBefore(notice, mainContent.firstChild);
+        }
+    }
+    
+    // Actualizar el menú con el botón de cerrar sesión
+    updateNavMenu(userData);
+}
+
+// Actualizar el menú de navegación
+function updateNavMenu(userData) {
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+    
+    // Buscar o crear el botón de logout en el menú
+    let logoutBtn = nav.querySelector('.logout-btn');
+    
+    if (!logoutBtn) {
+        // Crear el botón de logout
+        logoutBtn = document.createElement('a');
+        logoutBtn.href = '#';
+        logoutBtn.className = 'logout-btn';
+        logoutBtn.innerHTML = '🚪 Cerrar Sesión';
+        logoutBtn.style.cssText = 'margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;';
+        
+        // Añadir al menú (dentro de nav-left si existe)
+        const navLeft = nav.querySelector('.nav-left');
+        if (navLeft) {
+            navLeft.appendChild(logoutBtn);
+        } else {
+            nav.appendChild(logoutBtn);
+        }
+        
+        // Añadir event listener
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+    }
+    
+    // Mostrar/ocultar botón de login original
+    const originalLoginBtn = nav.querySelector('.btn-login');
+    if (originalLoginBtn) {
+        originalLoginBtn.style.display = 'none';
+    }
+}
+
+// Event listener para el formulario de login
+const loginForm = document.getElementById('login-form');
+if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        // Validación básica (aquí podrías añadir más validaciones)
+        if (username && password) {
+            login(username, false);
+        } else {
+            alert('Por favor, introduce usuario y contraseña');
+        }
+    });
+}
+
+// Event listener para el botón de invitado
+const guestBtn = document.getElementById('guest-login');
+if (guestBtn) {
+    guestBtn.addEventListener('click', function() {
+        login('Invitado', true);
+    });
+}
+
+// Inicializar la autenticación al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    const userData = checkAuth();
+    if (userData) {
+        updateUIForUser(userData);
+    }
+});
+// ============================================
+// DROPDOWN DEL AVATAR DE USUARIO
+// ============================================
+const avatarBtn = document.getElementById('user-avatar-btn');
+const userDropdown = document.getElementById('user-dropdown');
+
+// Función para actualizar las iniciales y nombre según el usuario logueado
+function updateAvatarUI() {
+    const userStr = localStorage.getItem('ksap_user');
+    if (userStr) {
+        const user = JSON.parse(userStr);
+        const name = user.username || 'Usuario';
+        const initials = name.substring(0, 2).toUpperCase();
+        
+        // Actualizar textos
+        const dropdownName = document.getElementById('dropdown-name');
+        const dropdownEmail = document.getElementById('dropdown-email');
+        const avatarInitials = document.getElementById('avatar-initials');
+        const dropdownAvatar = document.getElementById('dropdown-avatar');
+        
+        if (dropdownName) dropdownName.textContent = name;
+        if (dropdownEmail) dropdownEmail.textContent = user.isGuest ? 'Modo invitado' : `${name.toLowerCase()}@ksap.app`;
+        if (avatarInitials) avatarInitials.textContent = initials;
+        if (dropdownAvatar) dropdownAvatar.textContent = initials;
+    }
+}
+
+if (avatarBtn && userDropdown) {
+    // Abrir/cerrar dropdown al hacer clic en el avatar
+    avatarBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle('active');
+    });
+
+    // Cerrar dropdown al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        if (!userDropdown.contains(e.target) && !avatarBtn.contains(e.target)) {
+            userDropdown.classList.remove('active');
+        }
+    });
+
+    // Cerrar dropdown al hacer clic en un enlace
+    const dropdownLinks = userDropdown.querySelectorAll('a.dropdown-item');
+    dropdownLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            userDropdown.classList.remove('active');
+        });
+    });
+    
+    // Actualizar UI al cargar
+    updateAvatarUI();
+}

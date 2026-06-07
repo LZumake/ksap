@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+    <div id="overlay" class="overlay"></div>
     <nav>
     <div class="nav-left">
         <button class="hamburger" id="hamburger" aria-label="Abrir menú">
@@ -21,6 +22,47 @@
         <a href="compras.html">🛒 Compras</a>
     </div>
     <a href="login.html" class="btn-login">👤 Iniciar Sesión</a>
+        <!-- Avatar de Usuario (Esquina superior derecha) -->
+    <div class="user-avatar-container">
+        <button class="user-avatar-btn" id="user-avatar-btn" aria-label="Menú de usuario">
+            <span class="avatar-initials" id="avatar-initials">U</span>
+        </button>
+        
+        <div class="user-dropdown" id="user-dropdown">
+            <div class="dropdown-header">
+                <div class="dropdown-avatar" id="dropdown-avatar">U</div>
+                <div class="dropdown-info">
+                    <div class="dropdown-name" id="dropdown-name">Usuario</div>
+                    <div class="dropdown-email" id="dropdown-email">usuario@ksap.app</div>
+                </div>
+            </div>
+            
+            <div class="dropdown-divider"></div>
+            
+            <a href="perfil.html" class="dropdown-item">👤 Mi Perfil</a>
+            <a href="configuracion.html" class="dropdown-item">⚙️ Configuración</a>
+            
+            <button class="dropdown-item dropdown-toggle">
+                <span>📍 GPS</span>
+                <span class="toggle-switch">
+                    <input type="checkbox" id="gps-toggle">
+                    <span class="toggle-slider"></span>
+                </span>
+            </button>
+            
+            <button class="dropdown-item dropdown-toggle">
+                <span>🌙 Modo Oscuro</span>
+                <span class="toggle-switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="toggle-slider"></span>
+                </span>
+            </button>
+            
+            <div class="dropdown-divider"></div>
+            
+            <a href="#" class="dropdown-item logout-item" id="logout-btn">🚪 Cerrar Sesión</a>
+        </div>
+    </div>
 </nav>
     
     <header>

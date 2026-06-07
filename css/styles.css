@@ -25,12 +25,27 @@ nav {
     align-items: center;
     min-height: 70px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 100;
 }
 
-nav>div {
+nav > div {
     display: flex;
     gap: 2rem;
     align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-left: auto;
 }
 
 nav a {
@@ -77,6 +92,8 @@ header {
     color: white;
     text-align: center;
     padding: 3rem 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 header h1 {
@@ -96,6 +113,8 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .dashboard h2 {
@@ -217,25 +236,11 @@ footer {
     flex-shrink: 0;
 }
 
-.user-compartidas {
-    background-color: #6c757d;
-}
-
-.user-rosa {
-    background-color: #e83e8c;
-}
-
-.user-pedro {
-    background-color: #0d6efd;
-}
-
-.user-miguel {
-    background-color: #198754;
-}
-
-.user-ana {
-    background-color: #fd7e14;
-}
+.user-compartidas { background-color: #6c757d; }
+.user-rosa { background-color: #e83e8c; }
+.user-pedro { background-color: #0d6efd; }
+.user-miguel { background-color: #198754; }
+.user-ana { background-color: #fd7e14; }
 
 .user-name {
     font-weight: 500;
@@ -253,85 +258,22 @@ footer {
     font-weight: 600;
 }
 
-.badge-cocina {
-    background-color: #fff3cd;
-    color: #664d03;
-}
-
-.badge-bano {
-    background-color: #cff4fc;
-    color: #055160;
-}
-
-.badge-dormitorios {
-    background-color: #f8d7da;
-    color: #842029;
-}
-
-.badge-salon {
-    background-color: #d1e7dd;
-    color: #0f5132;
-}
-
-.badge-lavanderia {
-    background-color: #e0cffc;
-    color: #4a148c;
-}
-
-.badge-despacho {
-    background-color: #fde2e4;
-    color: #6f42c1;
-}
-
-.badge-recibidor {
-    background-color: #fff0db;
-    color: #997404;
-}
-
-.badge-mascotas {
-    background-color: #fde8d8;
-    color: #984c0c;
-}
-
-.badge-terrazas {
-    background-color: #d8f3dc;
-    color: #2d6a4f;
-}
-
-.badge-despensa {
-    background-color: #ffe5d9;
-    color: #c44536;
-}
-
-.badge-garaje {
-    background-color: #e9ecef;
-    color: #495057;
-}
-
-.badge-trastero {
-    background-color: #dee2e6;
-    color: #343a40;
-}
-
-.badge-varias {
-    background-color: #e7f5ff;
-    color: #1864ab;
-}
-
-.badge-expres {
-    background-color: #e2e3e5;
-    color: #41464b;
-}
-
-.badge-media {
-    background-color: #fff3cd;
-    color: #664d03;
-}
-
-.badge-profunda {
-    background-color: #f8d7da;
-    color: #842029;
-}
+.badge-cocina { background-color: #fff3cd; color: #664d03; }
+.badge-bano { background-color: #cff4fc; color: #055160; }
+.badge-dormitorios { background-color: #f8d7da; color: #842029; }
+.badge-salon { background-color: #d1e7dd; color: #0f5132; }
+.badge-lavanderia { background-color: #e0cffc; color: #4a148c; }
+.badge-despacho { background-color: #fde2e4; color: #6f42c1; }
+.badge-recibidor { background-color: #fff0db; color: #997404; }
+.badge-mascotas { background-color: #fde8d8; color: #984c0c; }
+.badge-terrazas { background-color: #d8f3dc; color: #2d6a4f; }
+.badge-despensa { background-color: #ffe5d9; color: #c44536; }
+.badge-garaje { background-color: #e9ecef; color: #495057; }
+.badge-trastero { background-color: #dee2e6; color: #343a40; }
+.badge-varias { background-color: #e7f5ff; color: #1864ab; }
+.badge-expres { background-color: #e2e3e5; color: #41464b; }
+.badge-media { background-color: #fff3cd; color: #664d03; }
+.badge-profunda { background-color: #f8d7da; color: #842029; }
 
 /* =========================================
    FECHAS Y TAREAS DE HOY
@@ -372,17 +314,8 @@ footer {
 }
 
 @keyframes pulse {
-    0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
-
-    100% {
-        opacity: 1;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }
 
 /* =========================================
@@ -482,13 +415,8 @@ footer {
     color: #2c3e50;
 }
 
-.summary-card .amount.green {
-    color: #198754;
-}
-
-.summary-card .amount.red {
-    color: #dc3545;
-}
+.summary-card .amount.green { color: #198754; }
+.summary-card .amount.red { color: #dc3545; }
 
 .transaction-list {
     background: white;
@@ -574,21 +502,10 @@ footer {
     font-size: 1.1rem;
 }
 
-.category-header.fruteria {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.category-header.lacteos {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-.category-header.limpieza {
-    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-}
-
-.category-header.carniceria {
-    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-}
+.category-header.fruteria { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+.category-header.lacteos { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.category-header.limpieza { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.category-header.carniceria { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
 
 .shopping-item {
     display: flex;
@@ -754,42 +671,6 @@ footer {
 }
 
 /* =========================================
-   MENÚ HAMBURGUESA
-   ========================================= */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 22px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-right: 1rem;
-}
-
-.hamburger span {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: white;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-.hamburger.active span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-}
-
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-}
- /* =========================================
    VALIDACIÓN DE FORMULARIOS
    ========================================= */
 .error-message {
@@ -825,6 +706,7 @@ footer {
 .success-message.visible {
     display: block;
 }
+
 /* =========================================
    CONTADOR DE PROGRESO - TAREAS
    ========================================= */
@@ -871,7 +753,593 @@ footer {
     border-radius: 10px;
 }
 
-/* Cuando se completan todas las tareas, la barra se pone verde */
 .progress-fill.complete {
     background: linear-gradient(135deg, #198754 0%, #28a745 100%);
+}
+
+/* Aviso de modo invitado */
+.guest-notice {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   LOGIN Ksap - SOBRESCRITURA DE ESTILOS
+   ========================================= */
+body.login-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    margin: 0;
+}
+
+body.login-page .login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.login-box {
+    width: 100%;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    color: #667eea;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+body.login-page .form-group {
+    margin-bottom: 1.5rem;
+}
+
+body.login-page .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+body.login-page .form-group input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+body.login-page .form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn-login-submit {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.login-divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.login-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e1e8ed;
+}
+
+.login-divider span {
+    background: white;
+    padding: 0 1rem;
+    position: relative;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.btn-guest {
+    width: 100%;
+    padding: 0.8rem;
+    background: transparent;
+    border: 2px solid #667eea;
+    color: #667eea;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-guest:hover {
+    background: #667eea;
+    color: white;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.login-footer a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   AVATAR DE USUARIO (Esquina superior derecha)
+   ========================================= */
+.user-avatar-container {
+    position: relative;
+    margin-left: 1rem;
+}
+
+.user-avatar-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 2px solid white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-avatar-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    min-width: 260px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 105;
+    overflow: hidden;
+}
+
+.user-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.dropdown-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.dropdown-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.dropdown-name {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-email {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: #e9ecef;
+    margin: 0.5rem 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.2rem;
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item.active {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.logout-item {
+    color: #dc3545;
+}
+
+.logout-item:hover {
+    background-color: #fff5f5;
+}
+
+/* Toggle Switch (Interruptor) */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 22px;
+}
+
+.toggle-slider::before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #667eea;
+}
+
+input:checked + .toggle-slider::before {
+    transform: translateX(18px);
+}
+
+/* =========================================
+   PÁGINA DE PERFIL
+   ========================================= */
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.profile-card h2 {
+    color: #2c3e50;
+    margin-bottom: 0.3rem;
+}
+
+.profile-role {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.profile-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.profile-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f1f3f5;
+}
+
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.profile-info-item {
+    padding: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.info-value {
+    display: block;
+    font-size: 1rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+    border-radius: 10px;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 0.3rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.btn-secondary {
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #667eea;
+    color: white;
+}
+
+.btn-danger {
+    background: white;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* =========================================
+   PÁGINA DE CONFIGURACIÓN
+   ========================================= */
+.settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.settings-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.settings-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f1f3f5;
+}
+
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f1f3f5;
+    gap: 1rem;
+}
+
+.settings-item:last-child {
+    border-bottom: none;
+}
+
+.settings-item.danger {
+    background: #fff5f5;
+    margin: 0 -1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+}
+
+.settings-info {
+    flex: 1;
+}
+
+.settings-info strong {
+    display: block;
+    color: #2c3e50;
+    margin-bottom: 0.2rem;
+}
+
+.settings-info p {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.settings-select {
+    padding: 0.5rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.settings-select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.settings-info-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.settings-info-text p {
+    margin: 0.3rem 0;
+}
+
+/* =========================================
+   OVERLAY PARA MENÚ HAMBURGUESA
+   ========================================= */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 95;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
 }

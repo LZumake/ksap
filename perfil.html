@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Ksap</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div id="overlay" class="overlay"></div>
+    <nav>
+        <div class="nav-left">
+            <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="index.html">🏠 Inicio</a>
+            <a href="tareas.html">📋 Tareas</a>
+            <a href="gastos.html">💰 Gastos</a>
+            <a href="compras.html">🛒 Compras</a>
+        </div>
+        <a href="login.html" class="btn-login">👤 Iniciar Sesión</a>
+        
+        <!-- Avatar de Usuario -->
+        <div class="user-avatar-container">
+            <button class="user-avatar-btn" id="user-avatar-btn" aria-label="Menú de usuario">
+                <span class="avatar-initials" id="avatar-initials">U</span>
+            </button>
+            <div class="user-dropdown" id="user-dropdown">
+                <div class="dropdown-header">
+                    <div class="dropdown-avatar" id="dropdown-avatar">U</div>
+                    <div class="dropdown-info">
+                        <div class="dropdown-name" id="dropdown-name">Usuario</div>
+                        <div class="dropdown-email" id="dropdown-email">usuario@ksap.app</div>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a href="perfil.html" class="dropdown-item active">👤 Mi Perfil</a>
+                <a href="configuracion.html" class="dropdown-item">⚙️ Configuración</a>
+                <button class="dropdown-item dropdown-toggle">
+                    <span>📍 GPS</span>
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="gps-toggle">
+                        <span class="toggle-slider"></span>
+                    </span>
+                </button>
+                <button class="dropdown-item dropdown-toggle">
+                    <span>🌙 Modo Oscuro</span>
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="toggle-slider"></span>
+                    </span>
+                </button>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item logout-item" id="logout-btn">🚪 Cerrar Sesión</a>
+            </div>
+        </div>
+    </nav>
+    
+    <header>
+        <h1>👤 Mi Perfil</h1>
+        <p>Tu información personal en Ksap</p>
+    </header>
+    
+    <main>
+        <section class="dashboard">
+            <div class="profile-container">
+                
+                <!-- Tarjeta de perfil -->
+                <div class="profile-card">
+                    <div class="profile-avatar-large" id="profile-avatar-large">U</div>
+                    <h2 id="profile-name">Usuario</h2>
+                    <p class="profile-role" id="profile-role">Miembro</p>
+                </div>
+
+                <!-- Información personal -->
+                <div class="profile-section">
+                    <h3>📝 Información Personal</h3>
+                    <div class="profile-info-grid">
+                        <div class="profile-info-item">
+                            <span class="info-label">Nombre de usuario</span>
+                            <span class="info-value" id="info-username">-</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value" id="info-email">-</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="info-label">Miembro desde</span>
+                            <span class="info-value" id="info-since">-</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="info-label">Tipo de cuenta</span>
+                            <span class="info-value" id="info-account-type">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estadísticas rápidas -->
+                <div class="profile-section">
+                    <h3>📊 Mis Estadísticas</h3>
+                    <div class="profile-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Tareas completadas</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Tickets escaneados</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Eventos guardados</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acciones -->
+                <div class="profile-section">
+                    <h3>⚡ Acciones Rápidas</h3>
+                    <div class="profile-actions">
+                        <button class="btn-primary">✏️ Editar Perfil</button>
+                        <button class="btn-secondary">📸 Cambiar Foto</button>
+                        <button class="btn-danger">🗑️ Eliminar Cuenta</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Desarrollado por LZumake | Proyecto DAW</p>
+    </footer>
+    <script src="js/app.js"></script>
+</body>
+</html>
