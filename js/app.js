@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 alert('Por favor, introduce usuario y contraseña');
             }
-            cargarPerfil(); 
         });
     }
 
@@ -129,26 +128,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // TAREAS - Checkboxes
+    // TAREAS - Renderizado dinámico
     // ============================================
-    const checkboxesTareas = document.querySelectorAll('.task-table input[type="checkbox"]');
-    checkboxesTareas.forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            const fila = this.closest('tr');
-            const estadoTexto = fila.querySelector('.status');
-
-            if (this.checked) {
-                fila.classList.add('hecha');
-                if (estadoTexto) estadoTexto.textContent = 'Hecha';
-            } else {
-                fila.classList.remove('hecha');
-                if (estadoTexto) estadoTexto.textContent = 'Pendiente';
-            }
-            updateTaskProgress();
-        });
+     renderizarTareas(); // Renderizar tareas al cargar la página
+    // Event listeners para los botones de filtro
+    const botonesFiltro = document.querySelectorAll('.btn-filtro');
+    botonesFiltro.forEach(boton => {
+    boton.addEventListener('click', function() {
+        // Remover clase active de todos los botones
+        botonesFiltro.forEach(b => b.classList.remove('active'));
+        // Añadir clase active al botón clickeado
+        this.classList.add('active');
+        
+        // Obtener el responsable del data attribute
+        const responsable = this.getAttribute('data-responsable');
+        
+        // Renderizar tareas con el filtro
+        renderizarTareas(responsable);
     });
-
-    updateTaskProgress();
+});
 
     // ============================================
     // COMPRAS - Checkboxes
@@ -168,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     // VALIDACIÓN EN TIEMPO REAL (register.html)
     // ============================================
-
     const inputNombre = document.getElementById('nombre');
     if (inputNombre) {
         inputNombre.addEventListener('input', function() {
@@ -249,7 +246,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
+
+    // ============================================
+    // CARGAR PERFIL REAL
+    // ============================================
+    cargarPerfil();
+
+}); // ← Cierre del DOMContentLoaded
 
 // ============================================
 // MENÚ HAMBURGUESA (fuera del DOMContentLoaded)
@@ -385,17 +388,13 @@ function limpiarErrores() {
 }
 
 // ============================================
-// CONTADOR DE TAREAS
+// CONTADOR DE TAREAS (ACTUALIZADO)
 // ============================================
 function updateTaskProgress() {
-    const checkboxes = document.querySelectorAll('.task-table input[type="checkbox"]');
-    const totalTasks = checkboxes.length;
-    let completedTasks = 0;
-
-    checkboxes.forEach(checkbox => {
-        if (checkbox.checked) completedTasks++;
-    });
-
+    // Contar tareas del array (no del DOM)
+    const totalTasks = tareasData ? tareasData.length : 0;
+    const completedTasks = tareasData ? tareasData.filter(t => t.estado === 'completada').length : 0;
+    
     const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
     const completedText = document.getElementById('tasks-completed');
@@ -511,6 +510,7 @@ function updateAvatarUI() {
     if (avatarInitials) avatarInitials.textContent = initials;
     if (dropdownAvatar) dropdownAvatar.textContent = initials;
 }
+
 // ============================================
 // CARGAR PERFIL REAL (perfil.html)
 // ============================================
@@ -547,4 +547,61 @@ function cargarPerfil() {
         const initials = (user.username || 'U').substring(0, 2).toUpperCase();
         profileAvatar.textContent = initials;
     }
+}
+
+// ============================================
+// DATOS DE TAREAS (Nuestro "Estado")
+// ============================================
+const tareasData = [
+    { id: 1, nombre: 'Hacer la cama, ventilar y ordenar dormitorios', responsable: 'Rosa', categoria: 'dormitorios', duracion: '20 min', frecuencia: 'Diaria', fecha: '2026-06-11', estado: 'pendiente' },
+    { id: 2, nombre: 'Limpiar cocina', responsable: 'Rosa', categoria: 'cocina', duracion: '30 min', frecuencia: 'Diaria', fecha: '2026-06-11', estado: 'pendiente' },
+    { id: 3, nombre: 'Sacar la basura', responsable: 'Pedro', categoria: 'varias', duracion: '5 min', frecuencia: 'Diaria', fecha: '2026-06-10', estado: 'completada' },
+    { id: 4, nombre: 'Lavar ropa', responsable: 'Ana', categoria: 'lavanderia', duracion: '45 min', frecuencia: 'Semanal', fecha: '2026-06-12', estado: 'pendiente' },
+    { id: 5, nombre: 'Aspirar salón', responsable: 'Miguel', categoria: 'salon', duracion: '25 min', frecuencia: 'Semanal', fecha: '2026-06-11', estado: 'pendiente' },
+    { id: 6, nombre: 'Limpiar baño', responsable: 'Rosa', categoria: 'bano', duracion: '40 min', frecuencia: 'Semanal', fecha: '2026-06-09', estado: 'completada' },
+    { id: 7, nombre: 'Regar plantas', responsable: 'Ana', categoria: 'terrazas', duracion: '15 min', frecuencia: 'Semanal', fecha: '2026-06-13', estado: 'pendiente' },
+    { id: 8, nombre: 'Fregar suelos', responsable: 'Pedro', categoria: 'salon', duracion: '50 min', frecuencia: 'Semanal', fecha: '2026-06-14', estado: 'pendiente' }
+];
+
+// ============================================
+// FUNCIÓN DE RENDERIZADO (Filter + Map + Join)
+// ============================================
+function renderizarTareas(filtroResponsable = 'todos') {
+    // A. FILTRAR
+    const tareasFiltradas = filtroResponsable === 'todos' 
+        ? tareasData 
+        : tareasData.filter(tarea => tarea.responsable === filtroResponsable);
+
+    // B. MAPEAR a HTML (7 columnas como en tu tabla)
+    const filasHTML = tareasFiltradas.map(tarea => {
+        const claseFila = tarea.estado === 'completada' ? 'hecha' : '';
+        const textoEstado = tarea.estado === 'completada' ? 'Hecha' : 'Pendiente';
+        const checked = tarea.estado === 'completada' ? 'checked' : '';
+        
+        return `
+            <tr class="${claseFila}" data-id="${tarea.id}">
+                <td>
+                    <input type="checkbox" ${checked} class="task-checkbox">
+                    <span>${tarea.nombre}</span>
+                </td>
+                <td><span class="badge badge-${tarea.categoria}">${tarea.categoria}</span></td>
+                <td>${tarea.responsable}</td>
+                <td>${tarea.duracion}</td>
+                <td>${tarea.frecuencia}</td>
+                <td class="fecha-proxima">${tarea.fecha}</td>
+                <td class="status">${textoEstado}</td>
+            </tr>
+        `;
+    });
+
+    // C. UNIR e INYECTAR
+    const contenedorTabla = document.getElementById('contenedor-tareas');
+    if (contenedorTabla) {
+        contenedorTabla.innerHTML = filasHTML.join('');
+    }
+
+    // D. Actualizar contador de progreso
+    updateTaskProgress();
+
+    console.log(`✅ Renderizadas ${tareasFiltradas.length} tareas (Filtro: ${filtroResponsable})`);
 }

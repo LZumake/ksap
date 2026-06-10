@@ -1,3 +1,114 @@
+﻿============================================================
+CÃ“DIGO ACTUAL KSAP - Generado automÃ¡ticamente
+Ãšltima actualizaciÃ³n: 10/06/2026 18:09
+============================================================
+
+=== 1. ESTRUCTURA HTML (index.html) ===
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ksap - Gestor de Convivencia</title>
+	<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+	<div id="overlay" class="overlay"></div>
+	<nav>
+    <div class="nav-left">
+        <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a href="index.html" class="active">🏠 Inicio</a>
+        <a href="tareas.html">📋 Tareas</a>
+        <a href="gastos.html">💰 Gastos</a>
+        <a href="compras.html">🛒 Compras</a>
+    </div>
+    
+    <div class="nav-right">
+        <a href="login.html" class="btn-login">👤 Iniciar Sesión</a>
+        
+        <!-- Avatar de Usuario -->
+        <div class="user-avatar-container">
+            <button class="user-avatar-btn" id="user-avatar-btn" aria-label="Menú de usuario">
+                <span class="avatar-initials" id="avatar-initials">U</span>
+            </button>
+            
+            <div class="user-dropdown" id="user-dropdown">
+                <div class="dropdown-header">
+                    <div class="dropdown-avatar" id="dropdown-avatar">U</div>
+                    <div class="dropdown-info">
+                        <div class="dropdown-name" id="dropdown-name">Usuario</div>
+                        <div class="dropdown-email" id="dropdown-email">usuario@ksap.app</div>
+                    </div>
+                </div>
+                
+                <div class="dropdown-divider"></div>
+                
+                <a href="perfil.html" class="dropdown-item">👤 Mi Perfil</a>
+                <a href="configuracion.html" class="dropdown-item">⚙️ Configuración</a>
+                
+                <button class="dropdown-item dropdown-toggle">
+                    <span>📍 GPS</span>
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="gps-toggle">
+                        <span class="toggle-slider"></span>
+                    </span>
+                </button>
+                
+                <button class="dropdown-item dropdown-toggle">
+                    <span>🌙 Modo Oscuro</span>
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="toggle-slider"></span>
+                    </span>
+                </button>
+                
+                <div class="dropdown-divider"></div>
+                
+                <a href="#" class="dropdown-item logout-item" id="logout-btn">🚪 Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</nav>
+    
+	<header>
+		<h1>🏠 Ksap</h1>
+		<p>Gestiona tu casa compartida de forma fácil</p>
+	</header>
+    
+	<main>
+		<section class="dashboard">
+			<h2>Bienvenido a tu gestor de convivencia</h2>
+			<div class="cards">
+				<div class="card">
+					<h3>📋 Tareas Pendientes</h3>
+					<p>3 tareas por hacer</p>
+				</div>
+				<div class="card">
+					<h3>💰 Últimos Gastos</h3>
+					<p>€125.50 este mes</p>
+				</div>
+				<div class="card">
+					<h3>🛒 Lista de la Compra</h3>
+					<p>5 artículos pendientes</p>
+				</div>
+			</div>
+		</section>
+	</main>
+    
+	<footer>
+		<p>Desarrollado por LZumake | Proyecto DAW</p>
+	</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
+
+
+=== 2. ESTILOS GENERALES (css/styles.css) ===
 /* =========================================
    RESET BÁSICO
    ========================================= */
@@ -1913,33 +2024,743 @@ body.dark-mode .modal-field select {
         flex: 1;
     }
 }
-/* Filtros de tareas */
-.filtros-tareas {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
 
-.btn-filtro {
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--border-color);
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border-radius: 8px;
+=== 3. ESTILOS RESPONSIVE (css/responsive.css) ===
+/* =========================================
+   RESPONSIVE - MÓVIL Y TABLET
+   ========================================= */
+
+/* Menú hamburguesa (solo visible en móvil) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    background: transparent;
+    border: none;
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.2s;
+    padding: 0;
+    margin-right: 1rem;
 }
 
-.btn-filtro:hover {
-    background: var(--bg-primary);
-    border-color: var(--accent-primary);
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-.btn-filtro.active {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    color: white;
-    border-color: transparent;
+.hamburger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* =========================================
+   TABLET Y MÓVIL (hasta 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Mostrar hamburguesa */
+    .hamburger {
+        display: flex !important;
+    }
+    
+    /* Ocultar enlaces de navegación por defecto */
+    .nav-left a:not(.hamburger) {
+        display: none !important;
+    }
+    /* Ocultar el botón hamburguesa (X) cuando el menú está abierto */
+    .nav.open .hamburger {
+    display: none !important;
+    }
+    
+    /* NAV en móvil: mantener flex row para que avatar quede arriba */
+    nav {
+        padding: 1rem;
+        position: relative;
+    }
+    
+    .nav-left {
+        gap: 0.5rem;
+    }
+    
+    .nav-right {
+        gap: 0.5rem;
+        position: relative;
+        z-index: 110; /* Avatar por encima del drawer */
+    }
+    
+    /* Drawer lateral cuando el menú está abierto */
+    nav.open .nav-left {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 220px !important; /* Ancho del drawer */
+        height: 100vh !important;
+        background-color: #2c3e50 !important;
+        flex-direction: column !important;
+        align-items: stretch !important; /* Estirar enlaces al ancho completo */
+        padding: 4rem 0 1rem !important;
+        z-index: 100 !important;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+    }
+    
+    /* Enlaces dentro del drawer */
+    nav.open .nav-left a:not(.hamburger) {
+        display: block !important;
+        width: 100% !important;
+        padding: 1rem 1.2rem !important;
+        text-align: left !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: white !important;
+    }
+    
+    nav.open .nav-left a:not(.hamburger):hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* Ocultar botón de login cuando el menú está abierto */
+    nav.open .btn-login {
+        display: none !important;
+    }
+    
+    /* Ajustar avatar en móvil */
+    .user-avatar-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.85rem;
+    }
+    
+    /* Ajustar dropdown en móvil */
+    .user-dropdown {
+        right: -10px;
+        min-width: 240px;
+    }
+    
+    /* Ajustar header en móvil */
+    header {
+        padding: 2rem 1rem;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    /* Ajustar main en móvil */
+    main {
+        padding: 1rem;
+    }
+    
+    /* Ajustar cards en móvil */
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* Ajustar tabla de tareas en móvil */
+    .task-table {
+        min-width: 600px;
+    }
+    
+   /* Ajustar perfil en móvil */
+    .profile-info-grid {
+    grid-template-columns: 1fr !important;
+}
+
+    .profile-stats {
+    grid-template-columns: 1fr !important;
+}
+
+    .profile-actions {
+    flex-direction: column;
+}
+
+    .profile-actions button {
+    width: 100%;
+}
+}
+
+/* =========================================
+   MÓVIL PEQUEÑO (hasta 480px)
+   ========================================= */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+    
+    .card h3 {
+        font-size: 1.1rem;
+    }
+}
+
+=== 4. LÃ“GICA JAVASCRIPT (js/app.js) ===
+// ============================================
+// INICIALIZACIÓN AL CARGAR LA PÁGINA
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ============================================
+    // MODO OSCURO - Cargar preferencia al iniciar
+    // ============================================
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeEnabled = localStorage.getItem('ksap_dark_mode') === 'true';
+
+    if (darkModeEnabled) {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) darkModeToggle.checked = true;
+    }
+
+    // ============================================
+    // AUTENTICACIÓN - Verificar sesión
+    // ============================================
+    const userData = checkAuth();
+    if (userData) {
+        updateUIForUser(userData);
+    }
+
+    // ============================================
+    // BOTÓN DE INVITADO (login.html)
+    // ============================================
+    const guestBtn = document.getElementById('guest-login');
+    if (guestBtn) {
+        guestBtn.addEventListener('click', function() {
+            login('Invitado', true);
+        });
+    }
+
+    // ============================================
+    // FORMULARIO DE LOGIN (login.html)
+    // ============================================
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                login(username, false);
+            } else {
+                alert('Por favor, introduce usuario y contraseña');
+            }
+            cargarPerfil(); 
+        });
+    }
+
+    // ============================================
+    // MODO OSCURO - Toggle
+    // ============================================
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('ksap_dark_mode', 'true');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('ksap_dark_mode', 'false');
+            }
+        });
+    }
+
+    // ============================================
+    // GPS - Toggle
+    // ============================================
+    const gpsToggle = document.getElementById('gps-toggle');
+    const gpsEnabled = localStorage.getItem('ksap_gps_enabled') === 'true';
+
+    if (gpsEnabled && gpsToggle) {
+        gpsToggle.checked = true;
+    }
+
+    if (gpsToggle) {
+        gpsToggle.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                localStorage.setItem('ksap_gps_enabled', 'true');
+                console.log('📍 GPS activado');
+            } else {
+                localStorage.setItem('ksap_gps_enabled', 'false');
+                console.log('📍 GPS desactivado');
+            }
+        });
+    }
+
+    // ============================================
+    // DROPDOWN DEL AVATAR
+    // ============================================
+    const avatarBtn = document.getElementById('user-avatar-btn');
+    const userDropdown = document.getElementById('user-dropdown');
+
+    if (avatarBtn && userDropdown) {
+        avatarBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!userDropdown.contains(e.target) && !avatarBtn.contains(e.target)) {
+                userDropdown.classList.remove('active');
+            }
+        });
+
+        const dropdownLinks = userDropdown.querySelectorAll('a.dropdown-item');
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                userDropdown.classList.remove('active');
+            });
+        });
+
+        const toggles = userDropdown.querySelectorAll('.toggle-switch');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const checkbox = toggle.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+
+        updateAvatarUI();
+    }
+
+    // ============================================
+    // TAREAS - Checkboxes
+    // ============================================
+    const checkboxesTareas = document.querySelectorAll('.task-table input[type="checkbox"]');
+    checkboxesTareas.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            const fila = this.closest('tr');
+            const estadoTexto = fila.querySelector('.status');
+
+            if (this.checked) {
+                fila.classList.add('hecha');
+                if (estadoTexto) estadoTexto.textContent = 'Hecha';
+            } else {
+                fila.classList.remove('hecha');
+                if (estadoTexto) estadoTexto.textContent = 'Pendiente';
+            }
+            updateTaskProgress();
+        });
+    });
+
+    updateTaskProgress();
+
+    // ============================================
+    // COMPRAS - Checkboxes
+    // ============================================
+    const checkboxesCompras = document.querySelectorAll('.item-checkbox');
+    checkboxesCompras.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            const tarjeta = this.closest('.shopping-item');
+            if (this.checked) {
+                tarjeta.classList.add('comprado');
+            } else {
+                tarjeta.classList.remove('comprado');
+            }
+        });
+    });
+
+    // ============================================
+    // VALIDACIÓN EN TIEMPO REAL (register.html)
+    // ============================================
+
+    const inputNombre = document.getElementById('nombre');
+    if (inputNombre) {
+        inputNombre.addEventListener('input', function() {
+            const valor = this.value.trim();
+            const errorSpan = document.getElementById('error-nombre');
+
+            if (valor.length > 0) {
+                if (valor.split(' ').length < 2) {
+                    mostrarError('nombre', 'Introduce nombre y apellido');
+                } else {
+                    marcarValido('nombre');
+                }
+            } else {
+                if (errorSpan) errorSpan.textContent = '';
+                this.classList.remove('error', 'valid');
+            }
+        });
+    }
+
+    const inputEmail = document.getElementById('email');
+    if (inputEmail) {
+        inputEmail.addEventListener('input', function() {
+            const valor = this.value.trim();
+            const errorSpan = document.getElementById('error-email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (valor.length > 0) {
+                if (!emailRegex.test(valor)) {
+                    mostrarError('email', 'Introduce un email válido');
+                } else {
+                    marcarValido('email');
+                }
+            } else {
+                if (errorSpan) errorSpan.textContent = '';
+                this.classList.remove('error', 'valid');
+            }
+        });
+    }
+
+    const inputPassword = document.getElementById('password');
+    if (inputPassword) {
+        inputPassword.addEventListener('input', function() {
+            const valor = this.value;
+            const errorSpan = document.getElementById('error-password');
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+            if (valor.length > 0) {
+                if (valor.length < 8) {
+                    mostrarError('password', 'Mínimo 8 caracteres');
+                } else if (!passwordRegex.test(valor)) {
+                    mostrarError('password', 'Incluye mayúsculas y números');
+                } else {
+                    marcarValido('password');
+                }
+            } else {
+                if (errorSpan) errorSpan.textContent = '';
+                this.classList.remove('error', 'valid');
+            }
+        });
+    }
+
+    const inputPassword2 = document.getElementById('password2');
+    if (inputPassword2) {
+        inputPassword2.addEventListener('input', function() {
+            const valor = this.value;
+            const password = document.getElementById('password').value;
+            const errorSpan = document.getElementById('error-password2');
+
+            if (valor.length > 0) {
+                if (valor !== password) {
+                    mostrarError('password2', 'Las contraseñas no coinciden');
+                } else {
+                    marcarValido('password2');
+                }
+            } else {
+                if (errorSpan) errorSpan.textContent = '';
+                this.classList.remove('error', 'valid');
+            }
+        });
+    }
+});
+
+// ============================================
+// MENÚ HAMBURGUESA (fuera del DOMContentLoaded)
+// ============================================
+const hamburger = document.getElementById('hamburger');
+const nav = document.querySelector('nav');
+const overlay = document.getElementById('overlay');
+
+if (hamburger) {
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
+        nav.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('active');
+    });
+
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            nav.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+    }
+
+    const navLinks = document.querySelectorAll('nav .nav-left a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            nav.classList.remove('open');
+            if (overlay) overlay.classList.remove('active');
+        });
+    });
+
+    if (nav) {
+        nav.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+}
+
+// ============================================
+// VALIDACIÓN DE FORMULARIO DE REGISTRO
+// ============================================
+const formularioRegistro = document.getElementById('register-form');
+
+if (formularioRegistro) {
+    formularioRegistro.addEventListener('submit', function(e) {
+        e.preventDefault();
+        limpiarErrores();
+
+        const nombre = document.getElementById('nombre')?.value.trim();
+        const email = document.getElementById('email')?.value.trim();
+        const password = document.getElementById('password')?.value;
+        const password2 = document.getElementById('password2')?.value;
+
+        if (!nombre || !email || !password) return;
+
+        let hayErrores = false;
+
+        if (nombre.split(' ').length < 2) {
+            mostrarError('nombre', 'Introduce tu nombre y apellido');
+            hayErrores = true;
+        } else {
+            marcarValido('nombre');
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            mostrarError('email', 'Introduce un email válido');
+            hayErrores = true;
+        } else {
+            marcarValido('email');
+        }
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+        if (password.length < 8) {
+            mostrarError('password', 'Mínimo 8 caracteres');
+            hayErrores = true;
+        } else if (!passwordRegex.test(password)) {
+            mostrarError('password', 'Incluye mayúsculas y números');
+            hayErrores = true;
+        } else {
+            marcarValido('password');
+        }
+
+        if (password !== password2) {
+            mostrarError('password2', 'Las contraseñas no coinciden');
+            hayErrores = true;
+        } else if (password2 && password2.length > 0) {
+            marcarValido('password2');
+        }
+
+        if (!hayErrores) {
+            const userData = {
+                username: nombre,
+                email: email,
+                isGuest: false,
+                fechaRegistro: new Date().toLocaleDateString('es-ES'),
+                loginTime: new Date().toISOString()
+            };
+            localStorage.setItem('ksap_user', JSON.stringify(userData));
+
+            alert('¡Registro exitoso! Bienvenido/a ' + nombre.split(' ')[0]);
+            window.location.href = 'index.html';
+        }
+    });
+}
+
+// ============================================
+// FUNCIONES AUXILIARES
+// ============================================
+function mostrarError(campoId, mensaje) {
+    const input = document.getElementById(campoId);
+    const errorSpan = document.getElementById('error-' + campoId);
+    if (input) input.classList.add('error');
+    if (input) input.classList.remove('valid');
+    if (errorSpan) errorSpan.textContent = mensaje;
+}
+
+function marcarValido(campoId) {
+    const input = document.getElementById(campoId);
+    const errorSpan = document.getElementById('error-' + campoId);
+    if (input) input.classList.remove('error');
+    if (input) input.classList.add('valid');
+    if (errorSpan) errorSpan.textContent = '';
+}
+
+function limpiarErrores() {
+    const inputs = document.querySelectorAll('.form-control');
+    const errores = document.querySelectorAll('.error-message');
+    inputs.forEach(input => input.classList.remove('error', 'valid'));
+    errores.forEach(error => error.textContent = '');
+}
+
+// ============================================
+// CONTADOR DE TAREAS
+// ============================================
+function updateTaskProgress() {
+    const checkboxes = document.querySelectorAll('.task-table input[type="checkbox"]');
+    const totalTasks = checkboxes.length;
+    let completedTasks = 0;
+
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) completedTasks++;
+    });
+
+    const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    const completedText = document.getElementById('tasks-completed');
+    const percentageText = document.getElementById('tasks-percentage');
+    const progressFill = document.getElementById('progress-fill');
+
+    if (completedText) completedText.textContent = `${completedTasks} de ${totalTasks} tareas completadas`;
+    if (percentageText) percentageText.textContent = `${percentage}%`;
+    if (progressFill) {
+        progressFill.style.width = `${percentage}%`;
+        if (percentage === 100) {
+            progressFill.classList.add('complete');
+        } else {
+            progressFill.classList.remove('complete');
+        }
+    }
+}
+
+// ============================================
+// SISTEMA DE LOGIN Y SESIÓN
+// ============================================
+function login(username, isGuest = false) {
+    const userData = {
+        username: username,
+        isGuest: isGuest,
+        email: isGuest ? 'invitado@ksap.app' : `${username.toLowerCase()}@ksap.app`,
+        fechaRegistro: new Date().toLocaleDateString('es-ES'),
+        loginTime: new Date().toISOString()
+    };
+
+    localStorage.setItem('ksap_user', JSON.stringify(userData));
+    window.location.href = 'index.html';
+}
+
+function logout() {
+    localStorage.removeItem('ksap_user');
+    window.location.href = 'login.html';
+}
+
+function checkAuth() {
+    const user = localStorage.getItem('ksap_user');
+
+    if (window.location.pathname.includes('login.html') && user) {
+        window.location.href = 'index.html';
+        return null;
+    }
+
+    if (!window.location.pathname.includes('login.html') &&
+        !window.location.pathname.includes('register.html') &&
+        !user) {
+        window.location.href = 'login.html';
+        return null;
+    }
+
+    return user ? JSON.parse(user) : null;
+}
+
+function updateUIForUser(userData) {
+    if (!userData) return;
+
+    if (userData.isGuest) {
+        const addButtons = document.querySelectorAll('.btn-primary, .btn-add');
+        addButtons.forEach(btn => btn.style.display = 'none');
+
+        const mainContent = document.querySelector('main');
+        if (mainContent && !document.querySelector('.guest-notice')) {
+            const notice = document.createElement('div');
+            notice.className = 'guest-notice';
+            notice.innerHTML = '👤 Modo invitado - Inicia sesión para editar';
+            mainContent.insertBefore(notice, mainContent.firstChild);
+        }
+    }
+
+    updateNavMenu(userData);
+}
+
+function updateNavMenu(userData) {
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+
+    const originalLoginBtn = nav.querySelector('.btn-login');
+    if (originalLoginBtn) {
+        originalLoginBtn.style.display = 'none';
+    }
+
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+    }
+}
+
+// ============================================
+// ACTUALIZAR UI DEL AVATAR
+// ============================================
+function updateAvatarUI() {
+    const userStr = localStorage.getItem('ksap_user');
+    if (!userStr) return;
+
+    const user = JSON.parse(userStr);
+    const name = user.username || 'Usuario';
+    const initials = name.substring(0, 2).toUpperCase();
+
+    const dropdownName = document.getElementById('dropdown-name');
+    const dropdownEmail = document.getElementById('dropdown-email');
+    const avatarInitials = document.getElementById('avatar-initials');
+    const dropdownAvatar = document.getElementById('dropdown-avatar');
+
+    if (dropdownName) dropdownName.textContent = name;
+    if (dropdownEmail) dropdownEmail.textContent = user.isGuest ? 'Modo invitado' : (user.email || `${name.toLowerCase()}@ksap.app`);
+    if (avatarInitials) avatarInitials.textContent = initials;
+    if (dropdownAvatar) dropdownAvatar.textContent = initials;
+}
+// ============================================
+// CARGAR PERFIL REAL (perfil.html)
+// ============================================
+function cargarPerfil() {
+    const userStr = localStorage.getItem('ksap_user');
+    if (!userStr) return;
+
+    const user = JSON.parse(userStr);
+
+    // Elementos del DOM
+    const perfilNombre = document.getElementById('perfil-nombre');
+    const perfilEmail = document.getElementById('perfil-email');
+    const perfilFecha = document.getElementById('perfil-fecha');
+    const perfilRol = document.getElementById('perfil-rol');
+
+    // Rellenar con datos reales
+    if (perfilNombre) perfilNombre.textContent = user.username || 'Usuario';
+    if (perfilEmail) perfilEmail.textContent = user.email || 'usuario@ksap.app';
+    if (perfilFecha) perfilFecha.textContent = user.fechaRegistro || 'Hoy';
+    
+    if (perfilRol) {
+        if (user.isGuest) {
+            perfilRol.textContent = '👤 Invitado';
+            perfilRol.style.color = 'var(--text-secondary)';
+        } else {
+            perfilRol.textContent = '⭐ Premium';
+            perfilRol.style.color = 'var(--success)';
+        }
+    }
+
+    // Actualizar avatar de la cabecera del perfil (si existe)
+    const profileAvatar = document.getElementById('profile-avatar');
+    if (profileAvatar) {
+        const initials = (user.username || 'U').substring(0, 2).toUpperCase();
+        profileAvatar.textContent = initials;
+    }
 }

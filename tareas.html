@@ -3,90 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tareas - Ksap</title>
+    <title>Ksap - Gestión de Tareas</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+    <!-- Overlay para menú hamburguesa -->
     <div id="overlay" class="overlay"></div>
+
+    <!-- Navegación -->
     <nav>
-    <div class="nav-left">
-        <button class="hamburger" id="hamburger" aria-label="Abrir menú">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <a href="index.html">🏠 Inicio</a>
-        <a href="tareas.html" class="active">📋 Tareas</a>
-        <a href="gastos.html">💰 Gastos</a>
-        <a href="compras.html">🛒 Compras</a>
-    </div>
-    <a href="login.html" class="btn-login">👤 Iniciar Sesión</a>
-        <!-- Avatar de Usuario (Esquina superior derecha) -->
-    <div class="user-avatar-container">
-        <button class="user-avatar-btn" id="user-avatar-btn" aria-label="Menú de usuario">
-            <span class="avatar-initials" id="avatar-initials">U</span>
-        </button>
-        
-        <div class="user-dropdown" id="user-dropdown">
-            <div class="dropdown-header">
-                <div class="dropdown-avatar" id="dropdown-avatar">U</div>
-                <div class="dropdown-info">
-                    <div class="dropdown-name" id="dropdown-name">Usuario</div>
-                    <div class="dropdown-email" id="dropdown-email">usuario@ksap.app</div>
+        <div class="nav-left">
+            <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="index.html">🏠 Inicio</a>
+            <a href="tareas.html" class="active">📋 Tareas</a>
+            <a href="gastos.html">💰 Gastos</a>
+            <a href="compras.html">🛒 Compras</a>
+        </div>
+        <div class="nav-right">
+            <a href="login.html" class="btn-login">👤 Iniciar Sesión</a>
+            <!-- Avatar de Usuario -->
+            <div class="user-avatar-container">
+                <button class="user-avatar-btn" id="user-avatar-btn" aria-label="Menú de usuario">
+                    <span class="avatar-initials" id="avatar-initials">U</span>
+                </button>
+                <div class="user-dropdown" id="user-dropdown">
+                    <div class="dropdown-header">
+                        <div class="dropdown-avatar" id="dropdown-avatar">U</div>
+                        <div class="dropdown-info">
+                            <div class="dropdown-name" id="dropdown-name">Usuario</div>
+                            <div class="dropdown-email" id="dropdown-email">usuario@ksap.app</div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="perfil.html" class="dropdown-item"> Mi Perfil</a>
+                    <a href="configuracion.html" class="dropdown-item">️ Configuración</a>
+                    <button class="dropdown-item dropdown-toggle">
+                        <span>📍 GPS</span>
+                        <span class="toggle-switch">
+                            <input type="checkbox" id="gps-toggle">
+                            <span class="toggle-slider"></span>
+                        </span>
+                    </button>
+                    <button class="dropdown-item dropdown-toggle">
+                        <span>🌙 Modo Oscuro</span>
+                        <span class="toggle-switch">
+                            <input type="checkbox" id="dark-mode-toggle">
+                            <span class="toggle-slider"></span>
+                        </span>
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout-item" id="logout-btn">🚪 Cerrar Sesión</a>
                 </div>
             </div>
-            
-            <div class="dropdown-divider"></div>
-            
-            <a href="perfil.html" class="dropdown-item">👤 Mi Perfil</a>
-            <a href="configuracion.html" class="dropdown-item">⚙️ Configuración</a>
-            
-            <button class="dropdown-item dropdown-toggle">
-                <span>📍 GPS</span>
-                <span class="toggle-switch">
-                    <input type="checkbox" id="gps-toggle">
-                    <span class="toggle-slider"></span>
-                </span>
-            </button>
-            
-            <button class="dropdown-item dropdown-toggle">
-                <span>🌙 Modo Oscuro</span>
-                <span class="toggle-switch">
-                    <input type="checkbox" id="dark-mode-toggle">
-                    <span class="toggle-slider"></span>
-                </span>
-            </button>
-            
-            <div class="dropdown-divider"></div>
-            
-            <a href="#" class="dropdown-item logout-item" id="logout-btn">🚪 Cerrar Sesión</a>
         </div>
-    </div>
-</nav>
-    
+    </nav>
+
+    <!-- Header -->
     <header>
         <h1>📋 Gestión de Tareas</h1>
         <p>Organización y limpieza en equipo</p>
     </header>
-    
+
+    <!-- Contenido Principal -->
     <main>
         <section class="dashboard">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <!-- Header de la sección con título y botón -->
+            <div class="tareas-header">
                 <h2>Panel de Tareas del Hogar</h2>
                 <button class="btn-primary">+ Nueva Tarea</button>
             </div>
-            <!-- Contador de progreso -->
-<div class="progress-container">
-    <div class="progress-info">
-        <span id="tasks-completed">0 de 8 tareas completadas</span>
-        <span id="tasks-percentage">0%</span>
-    </div>
-    <div class="progress-bar">
-        <div id="progress-fill" class="progress-fill"></div>
-    </div>
-</div>
-            
+
+            <!-- Filtros por Responsable -->
+            <div class="filtros-container">
+                <span class="filtros-label">Filtrar por:</span>
+                <div class="filtros-tareas">
+                    <button class="btn-filtro active" data-responsable="todos">Todos</button>
+                    <button class="btn-filtro" data-responsable="Rosa">Rosa</button>
+                    <button class="btn-filtro" data-responsable="Pedro">Pedro</button>
+                    <button class="btn-filtro" data-responsable="Ana">Ana</button>
+                    <button class="btn-filtro" data-responsable="Miguel">Miguel</button>
+                </div>
+            </div>
+
+            <!-- Contador de Progreso -->
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="tasks-completed">0 de 0 tareas completadas</span>
+                    <span id="tasks-percentage">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Tabla de Tareas -->
             <div class="table-container">
                 <table class="task-table">
                     <thead>
@@ -100,191 +115,20 @@
                             <th>ESTADO</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Tarea 1: Diaria - Compartidas -->
-                        <tr class="tarea-hoy">
-                            <td data-label="TAREA">
-                                <span class="urgente"></span>
-                                <img src="img/Hacer cama.webp" alt="Hacer cama" class="task-icon">
-                                Hacer la cama, ventilar y ordenar dormitorio
-                            </td>
-                            <td data-label="ZONA"><span class="badge badge-dormitorios">Dormitorios</span></td>
-                            <td data-label="RESPONSABLE">
-                                <div class="user-cell">
-                                    <span class="user-avatar user-compartidas">C</span>
-                                    <span class="user-name">Compartidas</span>
-                                </div>
-                            </td>
-                            <td data-label="DURACIÓN"><span class="badge badge-expres">Expres</span></td>
-                            <td data-label="FRECUENCIA">Diaria</td>
-                            <td data-label="PRÓXIMA FECHA" class="fecha-proxima hoy">Hoy</td>
-                            <td data-label="ESTADO">
-                                <input type="checkbox" style="margin-right: 8px;">
-                                <span class="status status-pending">Pendiente</span>
-                            </td>
-                        </tr>
-                        
-                        <!-- Tarea 2: Diaria - Rosa -->
-                        <tr>
-                            <td data-label="TAREA">
-                                <img src="img/desayunar.webp" alt="Desayuno" class="task-icon">
-                                Preparar el desayuno
-                            </td>
-                            <td data-label="ZONA"><span class="badge badge-cocina">Cocina</span></td>
-                            <td data-label="RESPONSABLE">
-                                <div class="user-cell">
-                                    <span class="user-avatar user-rosa">R</span>
-                                    <span class="user-name">Rosa</span>
-                                </div>
-                            </td>
-                            <td data-label="DURACIÓN"><span class="badge badge-media">Media</span></td>
-                            <td data-label="FRECUENCIA">Diaria</td>
-                            <td data-label="PRÓXIMA FECHA" class="fecha-proxima hoy">Hoy</td>
-                            <td data-label="ESTADO">
-                                <input type="checkbox" style="margin-right: 8px;">
-                                <span class="status status-pending">Pendiente</span>
-                            </td>
-                        </tr>
-
-                        <!-- Tarea 3: Diaria - Pedro -->
-                        <tr>
-                            <td data-label="TAREA">
-                                <img src="img/fregar platos.webp" alt="Fregar platos" class="task-icon">
-                                Fregar platos y utensilios del desayuno
-                            </td>
-                            <td data-label="ZONA"><span class="badge badge-cocina">Cocina</span></td>
-                            <td data-label="RESPONSABLE">
-                                <div class="user-cell">
-                                    <span class="user-avatar user-pedro">P</span>
-                                    <span class="user-name">Pedro</span>
-                                </div>
-                            </td>
-                            <td data-label="DURACIÓN"><span class="badge badge-expres">Expres</span></td>
-                            <td data-label="FRECUENCIA">Diaria</td>
-                            <td data-label="PRÓXIMA FECHA" class="fecha-proxima hoy">Hoy</td>
-                            <td data-label="ESTADO">
-                                <input type="checkbox" style="margin-right: 8px;">
-                                <span class="status status-pending">Pendiente</span>
-                            </td>
-                        </tr>
-
-                        <!-- Tarea 4: Diaria - Ana (Baño) -->
-                        <tr>
-                            <td data-label="TAREA">
-                                <img src="img/limpiar baño.webp" alt="Limpiar baño" class="task-icon">
-                                Ordenar y repasar el baño por la mañana
-                            </td>
-                            <td data-label="ZONA"><span class="badge badge-bano">Baño</span></td>
-                            <td data-label="RESPONSABLE">
-                                <div class="user-cell">
-                                    <span class="user-avatar user-ana">A</span>
-                                    <span class="user-name">Ana</span>
-                                </div>
-                            </td>
-                            <td data-label="DURACIÓN"><span class="badge badge-expres">Expres</span></td>
-                            <td data-label="FRECUENCIA">Diaria</td>
-                            <td data-label="PRÓXIMA FECHA" class="fecha-proxima hoy">Hoy</td>
-                            <td data-label="ESTADO">
-                                <input type="checkbox" style="margin-right: 8px;">
-                                <span class="status status-pending">Pendiente</span>
-                            </td>
-                        </tr>
-
-                        <!-- Tarea 5: Semanal (Miércoles) - Compartidas -->
-                        <tr class="tarea-hoy">
-                            <td data-label="TAREA">
-                                <span class="urgente"></span>
-                                <img src="img/Hacer cama.webp" alt="Cambiar sábanas" class="task-icon">
-                                Cambiar sábanas
-                            </td>
-                            <td data-label="ZONA"><span class="badge badge-dormitorios">Dormitorios</span></td>
-                            <td data-label="RESPONSABLE">
-                                <div class="user-cell">
-                                    <span class="user-avatar user-compartidas">C</span>
-                                    <span class="user-name">Compartidas</span>
-                                </div>
-                            </td>
-                            <td data-label="DURACIÓN"><span class="badge badge-expres">Expres</span></td>
-                            <td data-label="FRECUENCIA">Semanal (Mié)</td>
-                            <td data-label="PRÓXIMA FECHA" class="fecha-proxima hoy">Hoy</td>
-                            <td data-label="ESTADO">
-                                <input type="checkbox" style="margin-right: 8px;">
-                                <span class="status status-pending">Pendiente</span>
-                            </td>
-                        </tr>
-
-                        <!-- Tarea 6: Diaria - Miguel (Cena) -->
-                        <tr>
-                            <td data-label="TAREA">
-                                <img src="img/fregar platos.webp" alt="Fregar platos" class="task-icon">
-                                Fregar platos y utensilios de la cena
-                            </td>
-                            <td data-label="ZONA"><span class="badge badge-cocina">Cocina</span></td>
-                            <td data-label="RESPONSABLE">
-                                <div class="user-cell">
-                                    <span class="user-avatar user-miguel">M</span>
-                                    <span class="user-name">Miguel</span>
-                                </div>
-                            </td>
-                            <td data-label="DURACIÓN"><span class="badge badge-expres">Expres</span></td>
-                            <td data-label="FRECUENCIA">Diaria</td>
-                            <td data-label="PRÓXIMA FECHA" class="fecha-proxima hoy">Hoy</td>
-                            <td data-label="ESTADO">
-                                <input type="checkbox" style="margin-right: 8px;">
-                                <span class="status status-pending">Pendiente</span>
-                            </td>
-                        </tr>
-
-                        <!-- Tarea 7: Diaria - Ana (Mascotas) -->
-                        <tr>
-                            <td data-label="TAREA">
-                                <img src="img/cuidados mascotas.webp" alt="Cuidados de mascotas" class="task-icon">
-                                Atender cuidados diarios de las mascotas
-                            </td>
-                            <td data-label="ZONA"><span class="badge badge-mascotas">Mascotas</span></td>
-                            <td data-label="RESPONSABLE">
-                                <div class="user-cell">
-                                    <span class="user-avatar user-ana">A</span>
-                                    <span class="user-name">Ana</span>
-                                </div>
-                            </td>
-                            <td data-label="DURACIÓN"><span class="badge badge-media">Media</span></td>
-                            <td data-label="FRECUENCIA">Diaria</td>
-                            <td data-label="PRÓXIMA FECHA" class="fecha-proxima hoy">Hoy</td>
-                            <td data-label="ESTADO">
-                                <input type="checkbox" style="margin-right: 8px;">
-                                <span class="status status-pending">Pendiente</span>
-                            </td>
-                        </tr>
-
-                        <!-- Tarea 8: Mensual - Ana (Horno) -->
-                        <tr>
-                            <td data-label="TAREA">Limpieza profunda del horno y campana</td>
-                            <td data-label="ZONA"><span class="badge badge-cocina">Cocina</span></td>
-                            <td data-label="RESPONSABLE">
-                                <div class="user-cell">
-                                    <span class="user-avatar user-ana">A</span>
-                                    <span class="user-name">Ana</span>
-                                </div>
-                            </td>
-                            <td data-label="DURACIÓN"><span class="badge badge-media">Media</span></td>
-                            <td data-label="FRECUENCIA">Mensual</td>
-                            <td data-label="PRÓXIMA FECHA" class="fecha-proxima">10/07/2026</td>
-                            <td data-label="ESTADO">
-                                <input type="checkbox" style="margin-right: 8px;">
-                                <span class="status status-pending">Pendiente</span>
-                            </td>
-                        </tr>
+                    <tbody id="contenedor-tareas">
+                        <!-- Las tareas se renderizan dinámicamente desde app.js -->
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
-    
+
+    <!-- Footer -->
     <footer>
         <p>Desarrollado por LZumake | Proyecto DAW</p>
     </footer>
-    
+
+    <!-- Scripts -->
     <script src="js/app.js"></script>
 </body>
 </html>
