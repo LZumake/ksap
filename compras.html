@@ -73,9 +73,22 @@
     <main>
         <section class="dashboard">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-                <h2>Compra de esta semana</h2>
-                <button class="btn-primary">+ Añadir Producto</button>
-            </div>
+    <h2>Compra de esta semana</h2>
+    <button class="btn-primary" id="btn-add-product">+ Añadir Producto</button>
+</div>
+
+<!-- Buscador con autocompletado -->
+<div class="search-container" style="position: relative; margin-bottom: 2rem;">
+    <input 
+        type="text" 
+        id="product-search" 
+        class="form-control" 
+        placeholder="🔍 Buscar producto (ej: leche, manzana, detergente...)"
+        autocomplete="off"
+        style="padding: 0.8rem 1rem; font-size: 1rem;"
+    >
+    <div id="search-suggestions" class="search-suggestions"></div>
+</div>
 
             <div class="shopping-section">
                 
@@ -236,5 +249,56 @@
         <p>Desarrollado por LZumake | Proyecto DAW</p>
     </footer>
     <script src="js/app.js"></script>
+    <script src="js/compras.js"></script>  
+    <!-- ============================================
+     MODAL PARA AÑADIR PRODUCTO
+     ============================================ -->
+<div class="modal-overlay" id="modal-add-product">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>🛒 Añadir producto</h3>
+            <button class="modal-close" id="modal-close">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="modal-product-name" id="modal-product-name">
+                Nombre del producto
+            </div>
+            
+            <div class="modal-field">
+                <label for="modal-quantity"> Cantidad</label>
+                <div class="quantity-input-group">
+                    <input type="number" id="modal-quantity" value="1" min="1" max="99">
+                    <select id="modal-unit">
+                        <option value="ud">ud</option>
+                        <option value="kg">kg</option>
+                        <option value="g">g</option>
+                        <option value="L">L</option>
+                        <option value="ml">ml</option>
+                        <option value="pack">pack</option>
+                        <option value="rollos">rollos</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="modal-field">
+                <label for="modal-buyer"> ¿Quién lo compra?</label>
+                <select id="modal-buyer">
+                    <option value="Tú">Tú</option>
+                    <option value="Rosa">Rosa</option>
+                    <option value="Pedro">Pedro</option>
+                    <option value="Ana">Ana</option>
+                    <option value="Miguel">Miguel</option>
+                    <option value="Compartidas">Compartidas</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn-cancel" id="modal-cancel">Cancelar</button>
+            <button class="btn-confirm" id="modal-confirm">Añadir</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

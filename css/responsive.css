@@ -50,6 +50,10 @@
     .nav-left a:not(.hamburger) {
         display: none !important;
     }
+    /* Ocultar el botón hamburguesa (X) cuando el menú está abierto */
+    .nav.open .hamburger {
+    display: none !important;
+    }
     
     /* NAV en móvil: mantener flex row para que avatar quede arriba */
     nav {
@@ -146,22 +150,22 @@
         min-width: 600px;
     }
     
-    /* Ajustar perfil en móvil */
+   /* Ajustar perfil en móvil */
     .profile-info-grid {
-        grid-template-columns: 1fr;
-    }
-    
+    grid-template-columns: 1fr !important;
+}
+
     .profile-stats {
-        grid-template-columns: 1fr;
-    }
-    
+    grid-template-columns: 1fr !important;
+}
+
     .profile-actions {
-        flex-direction: column;
-    }
-    
+    flex-direction: column;
+}
+
     .profile-actions button {
-        width: 100%;
-    }
+    width: 100%;
+}
 }
 
 /* =========================================

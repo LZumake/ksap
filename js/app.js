@@ -1,16 +1,142 @@
-// Esperar a que la página cargue completamente
+// ============================================
+// INICIALIZACIÓN AL CARGAR LA PÁGINA
+// ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    
+
     // ============================================
-    // LÓGICA PARA LA TABLA DE TAREAS (tareas.html)
+    // MODO OSCURO - Cargar preferencia al iniciar
+    // ============================================
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeEnabled = localStorage.getItem('ksap_dark_mode') === 'true';
+
+    if (darkModeEnabled) {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) darkModeToggle.checked = true;
+    }
+
+    // ============================================
+    // AUTENTICACIÓN - Verificar sesión
+    // ============================================
+    const userData = checkAuth();
+    if (userData) {
+        updateUIForUser(userData);
+    }
+
+    // ============================================
+    // BOTÓN DE INVITADO (login.html)
+    // ============================================
+    const guestBtn = document.getElementById('guest-login');
+    if (guestBtn) {
+        guestBtn.addEventListener('click', function() {
+            login('Invitado', true);
+        });
+    }
+
+    // ============================================
+    // FORMULARIO DE LOGIN (login.html)
+    // ============================================
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                login(username, false);
+            } else {
+                alert('Por favor, introduce usuario y contraseña');
+            }
+            cargarPerfil(); 
+        });
+    }
+
+    // ============================================
+    // MODO OSCURO - Toggle
+    // ============================================
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('ksap_dark_mode', 'true');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('ksap_dark_mode', 'false');
+            }
+        });
+    }
+
+    // ============================================
+    // GPS - Toggle
+    // ============================================
+    const gpsToggle = document.getElementById('gps-toggle');
+    const gpsEnabled = localStorage.getItem('ksap_gps_enabled') === 'true';
+
+    if (gpsEnabled && gpsToggle) {
+        gpsToggle.checked = true;
+    }
+
+    if (gpsToggle) {
+        gpsToggle.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                localStorage.setItem('ksap_gps_enabled', 'true');
+                console.log('📍 GPS activado');
+            } else {
+                localStorage.setItem('ksap_gps_enabled', 'false');
+                console.log('📍 GPS desactivado');
+            }
+        });
+    }
+
+    // ============================================
+    // DROPDOWN DEL AVATAR
+    // ============================================
+    const avatarBtn = document.getElementById('user-avatar-btn');
+    const userDropdown = document.getElementById('user-dropdown');
+
+    if (avatarBtn && userDropdown) {
+        avatarBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!userDropdown.contains(e.target) && !avatarBtn.contains(e.target)) {
+                userDropdown.classList.remove('active');
+            }
+        });
+
+        const dropdownLinks = userDropdown.querySelectorAll('a.dropdown-item');
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                userDropdown.classList.remove('active');
+            });
+        });
+
+        const toggles = userDropdown.querySelectorAll('.toggle-switch');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const checkbox = toggle.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+
+        updateAvatarUI();
+    }
+
+    // ============================================
+    // TAREAS - Checkboxes
     // ============================================
     const checkboxesTareas = document.querySelectorAll('.task-table input[type="checkbox"]');
-    
     checkboxesTareas.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
             const fila = this.closest('tr');
             const estadoTexto = fila.querySelector('.status');
-            
+
             if (this.checked) {
                 fila.classList.add('hecha');
                 if (estadoTexto) estadoTexto.textContent = 'Hecha';
@@ -18,21 +144,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 fila.classList.remove('hecha');
                 if (estadoTexto) estadoTexto.textContent = 'Pendiente';
             }
+            updateTaskProgress();
         });
     });
-    
+
+    updateTaskProgress();
+
     // ============================================
-    // LÓGICA PARA LAS TARJETAS DE COMPRAS (compras.html)
+    // COMPRAS - Checkboxes
     // ============================================
     const checkboxesCompras = document.querySelectorAll('.item-checkbox');
-    
     checkboxesCompras.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
-            // Encontrar la tarjeta completa (shopping-item) que contiene este checkbox
             const tarjeta = this.closest('.shopping-item');
-            // Encontrar el nombre del producto dentro de esa tarjeta
-            const nombreProducto = tarjeta.querySelector('.item-name');
-            
             if (this.checked) {
                 tarjeta.classList.add('comprado');
             } else {
@@ -40,9 +164,95 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // ============================================
+    // VALIDACIÓN EN TIEMPO REAL (register.html)
+    // ============================================
+
+    const inputNombre = document.getElementById('nombre');
+    if (inputNombre) {
+        inputNombre.addEventListener('input', function() {
+            const valor = this.value.trim();
+            const errorSpan = document.getElementById('error-nombre');
+
+            if (valor.length > 0) {
+                if (valor.split(' ').length < 2) {
+                    mostrarError('nombre', 'Introduce nombre y apellido');
+                } else {
+                    marcarValido('nombre');
+                }
+            } else {
+                if (errorSpan) errorSpan.textContent = '';
+                this.classList.remove('error', 'valid');
+            }
+        });
+    }
+
+    const inputEmail = document.getElementById('email');
+    if (inputEmail) {
+        inputEmail.addEventListener('input', function() {
+            const valor = this.value.trim();
+            const errorSpan = document.getElementById('error-email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (valor.length > 0) {
+                if (!emailRegex.test(valor)) {
+                    mostrarError('email', 'Introduce un email válido');
+                } else {
+                    marcarValido('email');
+                }
+            } else {
+                if (errorSpan) errorSpan.textContent = '';
+                this.classList.remove('error', 'valid');
+            }
+        });
+    }
+
+    const inputPassword = document.getElementById('password');
+    if (inputPassword) {
+        inputPassword.addEventListener('input', function() {
+            const valor = this.value;
+            const errorSpan = document.getElementById('error-password');
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+            if (valor.length > 0) {
+                if (valor.length < 8) {
+                    mostrarError('password', 'Mínimo 8 caracteres');
+                } else if (!passwordRegex.test(valor)) {
+                    mostrarError('password', 'Incluye mayúsculas y números');
+                } else {
+                    marcarValido('password');
+                }
+            } else {
+                if (errorSpan) errorSpan.textContent = '';
+                this.classList.remove('error', 'valid');
+            }
+        });
+    }
+
+    const inputPassword2 = document.getElementById('password2');
+    if (inputPassword2) {
+        inputPassword2.addEventListener('input', function() {
+            const valor = this.value;
+            const password = document.getElementById('password').value;
+            const errorSpan = document.getElementById('error-password2');
+
+            if (valor.length > 0) {
+                if (valor !== password) {
+                    mostrarError('password2', 'Las contraseñas no coinciden');
+                } else {
+                    marcarValido('password2');
+                }
+            } else {
+                if (errorSpan) errorSpan.textContent = '';
+                this.classList.remove('error', 'valid');
+            }
+        });
+    }
 });
+
 // ============================================
-// MENÚ HAMBURGUESA CON OVERLAY
+// MENÚ HAMBURGUESA (fuera del DOMContentLoaded)
 // ============================================
 const hamburger = document.getElementById('hamburger');
 const nav = document.querySelector('nav');
@@ -55,8 +265,7 @@ if (hamburger) {
         nav.classList.toggle('open');
         if (overlay) overlay.classList.toggle('active');
     });
-    
-    // Cerrar al hacer clic en el overlay
+
     if (overlay) {
         overlay.addEventListener('click', function() {
             hamburger.classList.remove('active');
@@ -65,7 +274,6 @@ if (hamburger) {
         });
     }
 
-    // Cerrar al hacer clic en un enlace del menú
     const navLinks = document.querySelectorAll('nav .nav-left a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -74,149 +282,130 @@ if (hamburger) {
             if (overlay) overlay.classList.remove('active');
         });
     });
-    
-    // Evitar que el clic en el nav cierre el menú
+
     if (nav) {
         nav.addEventListener('click', function(e) {
             e.stopPropagation();
         });
     }
 }
+
 // ============================================
 // VALIDACIÓN DE FORMULARIO DE REGISTRO
 // ============================================
-
-const formularioRegistro = document.querySelector('form');
+const formularioRegistro = document.getElementById('register-form');
 
 if (formularioRegistro) {
     formularioRegistro.addEventListener('submit', function(e) {
-        // Prevenimos que el formulario se envíe (recargue la página)
         e.preventDefault();
-        
-        // Limpiamos errores anteriores
         limpiarErrores();
-        
-        // Obtenemos los valores de los inputs
-        const nombre = document.getElementById('nombre').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        const password2 = document.getElementById('password2').value;
-        
-        // Variable para trackear si hay errores
+
+        const nombre = document.getElementById('nombre')?.value.trim();
+        const email = document.getElementById('email')?.value.trim();
+        const password = document.getElementById('password')?.value;
+        const password2 = document.getElementById('password2')?.value;
+
+        if (!nombre || !email || !password) return;
+
         let hayErrores = false;
-        
-        // VALIDACIÓN 1: El nombre debe tener al menos 2 palabras (nombre + apellido)
+
         if (nombre.split(' ').length < 2) {
-            mostrarError('nombre', 'Por favor, introduce tu nombre y apellido');
+            mostrarError('nombre', 'Introduce tu nombre y apellido');
             hayErrores = true;
         } else {
             marcarValido('nombre');
         }
-        
-        // VALIDACIÓN 2: El email debe tener formato válido
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            mostrarError('email', 'Introduce un email válido (ej: usuario@correo.com)');
+            mostrarError('email', 'Introduce un email válido');
             hayErrores = true;
         } else {
             marcarValido('email');
         }
-        
-        // VALIDACIÓN 3: La contraseña debe tener al menos 8 caracteres
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
         if (password.length < 8) {
-            mostrarError('password', 'La contraseña debe tener al menos 8 caracteres');
+            mostrarError('password', 'Mínimo 8 caracteres');
+            hayErrores = true;
+        } else if (!passwordRegex.test(password)) {
+            mostrarError('password', 'Incluye mayúsculas y números');
             hayErrores = true;
         } else {
             marcarValido('password');
         }
-        
-        // VALIDACIÓN 4: Las contraseñas deben coincidir
+
         if (password !== password2) {
             mostrarError('password2', 'Las contraseñas no coinciden');
             hayErrores = true;
-        } else if (password2.length > 0) {
+        } else if (password2 && password2.length > 0) {
             marcarValido('password2');
         }
-        
-        // Si no hay errores, simulamos el registro exitoso
+
         if (!hayErrores) {
-            // Aquí iría la llamada al backend (por ahora solo mostramos mensaje)
+            const userData = {
+                username: nombre,
+                email: email,
+                isGuest: false,
+                fechaRegistro: new Date().toLocaleDateString('es-ES'),
+                loginTime: new Date().toISOString()
+            };
+            localStorage.setItem('ksap_user', JSON.stringify(userData));
+
             alert('¡Registro exitoso! Bienvenido/a ' + nombre.split(' ')[0]);
-            formularioRegistro.reset(); // Limpiamos el formulario
+            window.location.href = 'index.html';
         }
     });
 }
 
-// Función para mostrar un error en un campo específico
+// ============================================
+// FUNCIONES AUXILIARES
+// ============================================
 function mostrarError(campoId, mensaje) {
     const input = document.getElementById(campoId);
     const errorSpan = document.getElementById('error-' + campoId);
-    
-    input.classList.add('error');
-    input.classList.remove('valid');
-    errorSpan.textContent = mensaje;
+    if (input) input.classList.add('error');
+    if (input) input.classList.remove('valid');
+    if (errorSpan) errorSpan.textContent = mensaje;
 }
 
-// Función para marcar un campo como válido
 function marcarValido(campoId) {
     const input = document.getElementById(campoId);
     const errorSpan = document.getElementById('error-' + campoId);
-    
-    input.classList.remove('error');
-    input.classList.add('valid');
-    errorSpan.textContent = '';
+    if (input) input.classList.remove('error');
+    if (input) input.classList.add('valid');
+    if (errorSpan) errorSpan.textContent = '';
 }
 
-// Función para limpiar todos los errores
 function limpiarErrores() {
     const inputs = document.querySelectorAll('.form-control');
     const errores = document.querySelectorAll('.error-message');
-    
-    inputs.forEach(input => {
-        input.classList.remove('error', 'valid');
-    });
-    
-    errores.forEach(error => {
-        error.textContent = '';
-    });
+    inputs.forEach(input => input.classList.remove('error', 'valid'));
+    errores.forEach(error => error.textContent = '');
 }
-// ============================================
-// CONTADOR DE TAREAS COMPLETADAS
-// ============================================
 
+// ============================================
+// CONTADOR DE TAREAS
+// ============================================
 function updateTaskProgress() {
-    // Obtener todos los checkboxes de la tabla de tareas
     const checkboxes = document.querySelectorAll('.task-table input[type="checkbox"]');
     const totalTasks = checkboxes.length;
-    
-    // Contar cuántas están marcadas
     let completedTasks = 0;
+
     checkboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            completedTasks++;
-        }
+        if (checkbox.checked) completedTasks++;
     });
-    
-    // Calcular porcentaje
+
     const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-    
-    // Actualizar el texto
+
     const completedText = document.getElementById('tasks-completed');
     const percentageText = document.getElementById('tasks-percentage');
     const progressFill = document.getElementById('progress-fill');
-    
-    if (completedText) {
-        completedText.textContent = `${completedTasks} de ${totalTasks} tareas completadas`;
-    }
-    
-    if (percentageText) {
-        percentageText.textContent = `${percentage}%`;
-    }
-    
+
+    if (completedText) completedText.textContent = `${completedTasks} de ${totalTasks} tareas completadas`;
+    if (percentageText) percentageText.textContent = `${percentage}%`;
     if (progressFill) {
         progressFill.style.width = `${percentage}%`;
-        
-        // Si están todas completadas, la barra se pone verde
         if (percentage === 100) {
             progressFill.classList.add('complete');
         } else {
@@ -225,70 +414,52 @@ function updateTaskProgress() {
     }
 }
 
-// Añadir event listeners a todos los checkboxes de tareas
-const taskCheckboxes = document.querySelectorAll('.task-table input[type="checkbox"]');
-taskCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateTaskProgress);
-});
-
-// Llamar a la función al cargar la página para inicializar
-updateTaskProgress();
 // ============================================
 // SISTEMA DE LOGIN Y SESIÓN
 // ============================================
-
-// Función para iniciar sesión
 function login(username, isGuest = false) {
     const userData = {
         username: username,
         isGuest: isGuest,
+        email: isGuest ? 'invitado@ksap.app' : `${username.toLowerCase()}@ksap.app`,
+        fechaRegistro: new Date().toLocaleDateString('es-ES'),
         loginTime: new Date().toISOString()
     };
-    
-    // Guardar en localStorage
+
     localStorage.setItem('ksap_user', JSON.stringify(userData));
-    
-    // Redirigir al index
     window.location.href = 'index.html';
 }
 
-// Función para cerrar sesión
 function logout() {
     localStorage.removeItem('ksap_user');
     window.location.href = 'login.html';
 }
 
-// Función para verificar si hay sesión activa
 function checkAuth() {
     const user = localStorage.getItem('ksap_user');
-    
-    // Si estamos en login.html y hay sesión, redirigir al index
+
     if (window.location.pathname.includes('login.html') && user) {
         window.location.href = 'index.html';
-        return;
+        return null;
     }
-    
-    // Si NO estamos en login.html y NO hay sesión, redirigir al login
-    if (!window.location.pathname.includes('login.html') && !window.location.pathname.includes('register.html') && !user) {
+
+    if (!window.location.pathname.includes('login.html') &&
+        !window.location.pathname.includes('register.html') &&
+        !user) {
         window.location.href = 'login.html';
-        return false;
+        return null;
     }
-    
+
     return user ? JSON.parse(user) : null;
 }
 
-// Función para actualizar UI según el tipo de usuario
 function updateUIForUser(userData) {
     if (!userData) return;
-    
-    // Si es invitado, ocultar botones de añadir
+
     if (userData.isGuest) {
         const addButtons = document.querySelectorAll('.btn-primary, .btn-add');
-        addButtons.forEach(btn => {
-            btn.style.display = 'none';
-        });
-        
-        // Añadir aviso de modo invitado
+        addButtons.forEach(btn => btn.style.display = 'none');
+
         const mainContent = document.querySelector('main');
         if (mainContent && !document.querySelector('.guest-notice')) {
             const notice = document.createElement('div');
@@ -297,131 +468,83 @@ function updateUIForUser(userData) {
             mainContent.insertBefore(notice, mainContent.firstChild);
         }
     }
-    
-    // Actualizar el menú con el botón de cerrar sesión
+
     updateNavMenu(userData);
 }
 
-// Actualizar el menú de navegación
 function updateNavMenu(userData) {
     const nav = document.querySelector('nav');
     if (!nav) return;
-    
-    // Buscar o crear el botón de logout en el menú
-    let logoutBtn = nav.querySelector('.logout-btn');
-    
-    if (!logoutBtn) {
-        // Crear el botón de logout
-        logoutBtn = document.createElement('a');
-        logoutBtn.href = '#';
-        logoutBtn.className = 'logout-btn';
-        logoutBtn.innerHTML = '🚪 Cerrar Sesión';
-        logoutBtn.style.cssText = 'margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;';
-        
-        // Añadir al menú (dentro de nav-left si existe)
-        const navLeft = nav.querySelector('.nav-left');
-        if (navLeft) {
-            navLeft.appendChild(logoutBtn);
-        } else {
-            nav.appendChild(logoutBtn);
-        }
-        
-        // Añadir event listener
+
+    const originalLoginBtn = nav.querySelector('.btn-login');
+    if (originalLoginBtn) {
+        originalLoginBtn.style.display = 'none';
+    }
+
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
         logoutBtn.addEventListener('click', function(e) {
             e.preventDefault();
             logout();
         });
     }
-    
-    // Mostrar/ocultar botón de login original
-    const originalLoginBtn = nav.querySelector('.btn-login');
-    if (originalLoginBtn) {
-        originalLoginBtn.style.display = 'none';
-    }
 }
 
-// Event listener para el formulario de login
-const loginForm = document.getElementById('login-form');
-if (loginForm) {
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        
-        // Validación básica (aquí podrías añadir más validaciones)
-        if (username && password) {
-            login(username, false);
-        } else {
-            alert('Por favor, introduce usuario y contraseña');
-        }
-    });
-}
-
-// Event listener para el botón de invitado
-const guestBtn = document.getElementById('guest-login');
-if (guestBtn) {
-    guestBtn.addEventListener('click', function() {
-        login('Invitado', true);
-    });
-}
-
-// Inicializar la autenticación al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-    const userData = checkAuth();
-    if (userData) {
-        updateUIForUser(userData);
-    }
-});
 // ============================================
-// DROPDOWN DEL AVATAR DE USUARIO
+// ACTUALIZAR UI DEL AVATAR
 // ============================================
-const avatarBtn = document.getElementById('user-avatar-btn');
-const userDropdown = document.getElementById('user-dropdown');
-
-// Función para actualizar las iniciales y nombre según el usuario logueado
 function updateAvatarUI() {
     const userStr = localStorage.getItem('ksap_user');
-    if (userStr) {
-        const user = JSON.parse(userStr);
-        const name = user.username || 'Usuario';
-        const initials = name.substring(0, 2).toUpperCase();
-        
-        // Actualizar textos
-        const dropdownName = document.getElementById('dropdown-name');
-        const dropdownEmail = document.getElementById('dropdown-email');
-        const avatarInitials = document.getElementById('avatar-initials');
-        const dropdownAvatar = document.getElementById('dropdown-avatar');
-        
-        if (dropdownName) dropdownName.textContent = name;
-        if (dropdownEmail) dropdownEmail.textContent = user.isGuest ? 'Modo invitado' : `${name.toLowerCase()}@ksap.app`;
-        if (avatarInitials) avatarInitials.textContent = initials;
-        if (dropdownAvatar) dropdownAvatar.textContent = initials;
-    }
+    if (!userStr) return;
+
+    const user = JSON.parse(userStr);
+    const name = user.username || 'Usuario';
+    const initials = name.substring(0, 2).toUpperCase();
+
+    const dropdownName = document.getElementById('dropdown-name');
+    const dropdownEmail = document.getElementById('dropdown-email');
+    const avatarInitials = document.getElementById('avatar-initials');
+    const dropdownAvatar = document.getElementById('dropdown-avatar');
+
+    if (dropdownName) dropdownName.textContent = name;
+    if (dropdownEmail) dropdownEmail.textContent = user.isGuest ? 'Modo invitado' : (user.email || `${name.toLowerCase()}@ksap.app`);
+    if (avatarInitials) avatarInitials.textContent = initials;
+    if (dropdownAvatar) dropdownAvatar.textContent = initials;
 }
+// ============================================
+// CARGAR PERFIL REAL (perfil.html)
+// ============================================
+function cargarPerfil() {
+    const userStr = localStorage.getItem('ksap_user');
+    if (!userStr) return;
 
-if (avatarBtn && userDropdown) {
-    // Abrir/cerrar dropdown al hacer clic en el avatar
-    avatarBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        userDropdown.classList.toggle('active');
-    });
+    const user = JSON.parse(userStr);
 
-    // Cerrar dropdown al hacer clic fuera
-    document.addEventListener('click', function(e) {
-        if (!userDropdown.contains(e.target) && !avatarBtn.contains(e.target)) {
-            userDropdown.classList.remove('active');
-        }
-    });
+    // Elementos del DOM
+    const perfilNombre = document.getElementById('perfil-nombre');
+    const perfilEmail = document.getElementById('perfil-email');
+    const perfilFecha = document.getElementById('perfil-fecha');
+    const perfilRol = document.getElementById('perfil-rol');
 
-    // Cerrar dropdown al hacer clic en un enlace
-    const dropdownLinks = userDropdown.querySelectorAll('a.dropdown-item');
-    dropdownLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            userDropdown.classList.remove('active');
-        });
-    });
+    // Rellenar con datos reales
+    if (perfilNombre) perfilNombre.textContent = user.username || 'Usuario';
+    if (perfilEmail) perfilEmail.textContent = user.email || 'usuario@ksap.app';
+    if (perfilFecha) perfilFecha.textContent = user.fechaRegistro || 'Hoy';
     
-    // Actualizar UI al cargar
-    updateAvatarUI();
+    if (perfilRol) {
+        if (user.isGuest) {
+            perfilRol.textContent = '👤 Invitado';
+            perfilRol.style.color = 'var(--text-secondary)';
+        } else {
+            perfilRol.textContent = '⭐ Premium';
+            perfilRol.style.color = 'var(--success)';
+        }
+    }
+
+    // Actualizar avatar de la cabecera del perfil (si existe)
+    const profileAvatar = document.getElementById('profile-avatar');
+    if (profileAvatar) {
+        const initials = (user.username || 'U').substring(0, 2).toUpperCase();
+        profileAvatar.textContent = initials;
+    }
 }
