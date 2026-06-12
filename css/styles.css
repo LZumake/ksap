@@ -1896,7 +1896,7 @@ body.dark-mode .modal-field select {
     right: 0;
     background-color: #2c3e50;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    z-index: 998; 
     padding: 0.4rem 1.5rem 0.6rem;
     height: 80px;
     display: none; /* Oculto en desktop */
@@ -1952,6 +1952,7 @@ body.dark-mode .modal-field select {
     transform: translateY(10px);
     transition: all 0.3s ease;
     min-width: 140px;
+    z-index: 1001;
 }
 
 .fab-left .fab-menu {
@@ -1993,7 +1994,97 @@ body.dark-mode .modal-field select {
 .fab-right .fab-menu-item:hover {
     transform: translateX(-5px);
 }
+/* ============================================
+   SUBMENÚ DE FILTRO POR ZONA
+   ============================================ */
+.fab-submenu {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    padding: 0.8rem;
+    z-index: 1002;
+    min-width: 280px;
+    max-width: 90%;
+    animation: slideUp 0.3s ease;
+}
 
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.fab-submenu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.fab-submenu-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.fab-submenu-close:hover {
+    background-color: var(--bg-primary);
+}
+
+.fab-submenu-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.fab-submenu-item {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.fab-submenu-item:hover {
+    background: var(--accent-gradient);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive móvil */
+@media (max-width: 768px) {
+    .fab-submenu {
+        bottom: 70px;
+        min-width: 250px;
+    }
+}
 /* Responsive móvil */
 @media (max-width: 768px) {
     .footer-fijo {

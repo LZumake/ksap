@@ -151,6 +151,7 @@
         overflow-y: auto;
         min-height: calc(100vh - 170px);
         height: auto;
+        z-index: 1;
     }
     
     /* 9. Ajustar cards en móvil */
@@ -187,6 +188,7 @@
         padding: 0.3rem 1rem 0.5rem;
         height: 65px;
         gap: 0.2rem;
+        z-index: 998;
     }
     
     .footer-fijo p {
