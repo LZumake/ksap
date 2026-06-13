@@ -147,7 +147,7 @@
     main {
         padding: 1rem;
         padding-top: 170px;
-        padding-bottom: 120px;
+        padding-bottom: 150px;
         overflow-y: auto;
         min-height: calc(100vh - 170px);
         height: auto;
